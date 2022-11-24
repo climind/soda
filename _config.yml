@@ -1,0 +1,10 @@
+title: Climind Database for NbS
+description: Search-oriented Database for Nature-based Solutions
+theme: just-the-docs
+logo: "/assets/logo.jpg"
+# color_scheme: dark
+
+url: https://climind.github.io/soda
+
+aux_links:
+  Visit Climind: https://climind.co
