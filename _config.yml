@@ -6,5 +6,11 @@ logo: "/assets/logo.jpg"
 
 url: https://climind.github.io/soda
 
+# Aux links for the upper right navigation
 aux_links:
   Visit Climind: https://climind.co
+# Makes Aux links open in a new tab. Default is false
+aux_links_new_tab: true
+
+liquid:
+  error_mode: warn
