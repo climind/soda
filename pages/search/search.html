@@ -1,0 +1,263 @@
+---
+permalink: /search
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, minimum-scale=1' name='viewport' />
+
+    {% if jekyll.environment == 'staging' %}
+      <meta name="robots" content="noindex, nofollow">
+    {% endif %}
+
+    <title>{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://qa1231c5w9-dsn.algolia.net" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+
+    <!-- Open Graph -->
+    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/assets/img/og-image.png" />
+    <meta property="og:title" content="{{ site.title }}" />
+    <meta property="og:site_name" content="Grantmakers.io" />
+    <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
+    <meta property="og:description" content="{{ site.description }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.1/themes/reset-min.css" integrity="sha256-JQ2nnTmybhOWSjfV3sa8mG0ZVhTCcORER4cyXc5HL10=" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/unified-search.css?v={{ site.time | date: '%Y%m%d'}}">
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.13.0/algoliasearch-lite.umd.min.js" integrity="sha512-ji9S/0drol2op0X3D/X3s0NzPYTbJ+uuTqKM4pppyGKCvJ9+aKsw6Vgyk3ByZ8ZXGh0rdr+Eokv+m1xOrygFVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.production.min.js" integrity="sha512-GZAF54GRoa3oTxOSw6uLtVBHcnMBK1K0HqK7RymF9yjb+C65B8mAOs46vvk4YIKuED5FkAUrSOc24f8mmpLqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ site.baseurl }}/assets/js/search-grants.js?v={{ site.time | date: '%Y%m%d'}}"></script>
+    
+  </head>
+  <body class="unified-search">
+
+    {% include materialize/header.html %}
+
+    <main>
+      <div class="parallax-container overlay">
+        <div class="parallax">
+          <img src="{{ site.baseurl }}/assets/img/bg.jpg">
+        </div>
+        <div class="intro valign-wrapper">
+          <div class="intro-text center-align white-text">
+            <h1 class="text-bold">Climate Database Search</h1>
+            <h5>Discover insights into the climate change</h5>
+            <p>Search through {{ site.number_of_searchable_grants | divided_by: 1000000 }}.{{ site.number_of_searchable_grants | modulo: 1000000 | divided_by: 100000 }} million climate-related datasets contained in the public databases</p>
+          </div>
+        </div>
+        <canvas></canvas>
+      </div>
+      <div class="nav-search">
+        <nav class="nav-center grey lighten-3 z-depth-1">
+          <div class="nav-wrapper">
+            <div class="row">
+              <div class="col l2 hide-on-med-and-down">
+                <div id="search-toggle" class="input-field valign-wrapper">
+                  <select class="browser-default grants-search white-text">
+                    <optgroup class="disabled" label="Search all grants">
+                      <option value="grants" selected>Grants Search</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+              <div class="col s12 l6 offset-l1 search-box-wrapper">
+                <div id="ais-widget-search-box"></div>
+                <div id="search-box-dropdown-trigger" class="hide-on-small-only">
+                  <div class="search-box-dropdown-trigger-wrapper valign-wrapper">
+                    <a class="dropdown-trigger" href="#" data-target="search-box-dropdown"><i class="material-icons">arrow_drop_down</i></a>
+                  </div>
+                </div>
+                <div class="search-box-dropdown-wrapper"></div>
+                <div id="search-box-dropdown" class="dropdown-content white text-default">
+                  <div class="dropdown-wrapper">
+                    <span class="dropdown-header"><small>FIELDS TO SEARCH</small></span>
+                    <ul id="dropdown-body">
+                      <li class="valign-wrapper">
+                        <label>
+                        <input id="organization_name" type="checkbox" class="filled-in" checked="checked" />
+                        <span>Project Developer</span>
+                        </label>
+                        <span class="checkbox-only" data-attribute="organization_name">only</span>
+                      </li>
+                      <li class="valign-wrapper">
+                        <label>
+                        <input id="grantee_name" type="checkbox" class="filled-in" checked="checked" />
+                        <span>Project Site</span>
+                        </label>
+                        <span class="checkbox-only" data-attribute="grantee_name">only</span>
+                      </li>
+                      <li class="valign-wrapper">
+                        <label>
+                        <input id="grantee_city" type="checkbox" class="filled-in" checked="checked" />
+                        <span>Project Owner</span>
+                        </label>
+                        <span class="checkbox-only" data-attribute="grantee_city">only</span>
+                      </li>
+                      <li class="valign-wrapper">
+                        <label>
+                        <input id="grant_purpose" type="checkbox" class="filled-in" checked="checked" />
+                        <span>ARB ID</span>
+                        </label>
+                        <span class="checkbox-only" data-attribute="grant_purpose">only</span>
+                      </li>
+                      <li class="valign-wrapper small text-light left-align">
+                        <span id="select-all" style="margin:inherit">SELECT ALL</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col l3 hide-on-med-and-down">
+                <div id="powered-by" class="right"></div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="section section-raised z-depth-4 grey lighten-3">
+        {% include search/algolia-template-rate-limit.html %}
+        {% include search/algolia-template-forbidden.html %}
+        <div id="algolia-hits-wrapper" class="row js-hide-advanced-tools">
+          <div class="col s12 l4"> 
+            <!-- Filters / Refinements header -->
+            <div class="text-muted hide-on-med-and-down">
+              Filters 
+              <div class="switch switch-refinements right">
+                <label class="search-toggle-advanced">
+                  Show advanced tools
+                  <input type="checkbox">
+                  <span class="lever"></span>
+                </label>
+              </div>
+            </div>
+            <div class="hidden">
+              <ul class="actions">
+                <li>
+                  <span id="ais-widget-mobile-clear-all"></span>
+                  <a href="#" data-target="refinements-slide-out" class="sidenav-trigger waves-effect waves-light button-collapse btn white grey-text text-darken-3"><i class="material-icons right">filter_list</i> Filter</a>
+                </li>
+                <li>
+                  
+                </li>
+              </ul>
+            </div>
+            <div class="divider hide-on-med-and-down"></div>
+            <div class="section-refinements section-refinements-grants-search hide-on-med-and-down grants-search">
+              <div> <!-- Add row class to remove added white space / padding -->
+                <div class="col s12">
+                  <div id="ais-widget-range-input"></div>
+                  <div id="ais-widget-refinement-list--grantee_name"></div>
+                  <div id="ais-widget-refinement-list--organization_name"></div>
+                  <div id="ais-widget-refinement-list--grantee_city"></div>
+                  <div id="ais-widget-refinement-list--grantee_state"></div>
+                </div>
+                <div class="col s12">
+                  <div class="section">
+                    <div id="ais-widget-clear-all" class="center-align"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 l8">
+            <div class="row row-tight">
+              <div class="col s12 m9 l10">
+                  <div id="ais-widget-stats"></div>
+                </div>
+                <div class="col m3 l2 hide-on-med-and-down">
+                  <div id="ais-widget-sort-by" class="small text-muted-max right">
+                    <a href="#modal-tips" class="modal-trigger text-muted-max">Search types <i class="tiny material-icons material-icons-rounded grey lighten-2 icon-idea left">wb_incandescent</i></a>
+                  </div>
+                </div>
+            </div>
+            <div class="">
+              <div class="">
+                  <div class="divider"></div>
+              </div>
+            </div>
+            <div class="row"> <!-- Add row class to remove added white space / padding -->
+              <div class="col s12">
+                <div id="ais-widget-current-refined-values"></div>
+                <!-- Profiles ais-widget-hits goes here-->
+                <div class="card card-grants-search"> <!-- Use class card for grants results-->
+                  <div class="card-content"> <!-- Use class card-content for grants results-->
+                    <div class="row row-tight hide-on-small-only">
+                      <div class="col m2">
+                        Project ID
+                      </div>
+                      <div class="col m2">
+                        Project Owner
+                      </div>
+                      <div class="col m2">
+                        Project Name
+                      </div>
+                      <div class="col m2">
+                        Project Type
+                      </div>
+                      <div class="col m2">
+                        Project Site
+                      </div>
+                      <div class="col m2">
+                        Project Website
+                      </div>
+                      <div class="col m12 divider"></div>
+                    </div>
+                    <div id="ais-widget-hits"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 l9 offset-l3">
+            <div class="section center-align">
+              <div id="ais-widget-pagination" class="grants-search"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Filters Sidenav-->
+    <!-- Filters not useful on mobile for Grants Search
+    <ul id="refinements-slide-out" class="sidenav section-refinements left-align grey lighten-5">
+      <li><div id="ais-widget-mobile-refinement-list--city"></div></li>
+      <li><div id="ais-widget-mobile-refinement-list--state"></div></li>
+      <div id="ais-widget-mobile-refinement-list--grantee_name"></div>
+      <div id="ais-widget-mobile-refinement-list--organization_name"></div>
+      <div id="ais-widget-mobile-refinement-list--grantee_city"></div>
+      <div id="ais-widget-mobile-refinement-list--grantee_state"></div>
+    </ul>
+    -->
+    <!-- End Filters sidenav -->    
+    <!-- Modals -->
+    <div id="modal-tips" class="modal">
+      <div class="modal-content">
+        {% include search/search-tips.html %}
+      </div>
+    </div>
+    <!-- End Modals-->
+    {% if jekyll.environment == 'production' %}
+      {% include ga.html %}
+      {% include cloudflare-analytics.js %}
+    {% endif %}
+    <!-- Drift -->
+    <!-- End Drift -->
+  </body>
+</html>

@@ -1,0 +1,1406 @@
+---
+---
+/****************************
+Override Materialize variables
+*****************************/
+$font-stack: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !default;
+$primary-color: #999999;
+$secondary-color: #c54e00;
+$error-color: color("yellow", "base");
+$link-color: $secondary-color !default;
+
+// Import Materialize
+@import 'materialize';
+
+// TODO Allow to pull color variables
+// e.g. currently cannot use $blue-grey
+
+/****************************
+Grid Sizes
+*****************************/
+
+// Materialize naming scheme
+$small-screen-up: 601px !default; // Mobile
+$medium-screen-up: 993px !default; // Tablet
+$large-screen-up: 1201px !default; // Desktop
+$small-screen: 600px !default;
+$medium-screen: 992px !default;
+$large-screen: 1200px !default;
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$extra-large-and-up: "only screen and (min-width : #{$large-screen-up})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
+
+/****************************
+Custom colors
+*****************************/
+
+$grantmakers: #c54e00; // Consider using default Material Design color: deep-orange darken-3 #d84315
+$grantmakers-medium: #F56A10;
+$grantmakers-light: #FB8F48;
+$grantmakers-lightest: lighten($grantmakers-light, 30%);
+$grantmakers-dark: #A13F00;
+$grantmakers-darker: #772F00;
+
+$grantmakers-secondary: #607d8b; // .grey-blue
+$grantmakers-secondary-accent: #03a9fa; // .light-blue
+
+$gray-base:              #000 !default;
+$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:              lighten($gray-base, 20%) !default;   // #333
+$gray:                   lighten($gray-base, 33.5%) !default; // #555
+$gray-light:             #999999 !default; // #999999
+$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
+$gray-lightest: 				 #f5f5f5;
+
+.grantmakers-color-bg, .btn-grantmakers, .grantmakers {
+	background-color: $grantmakers !important;
+}
+
+.btn-grantmakers:hover {
+	background-color: darken($grantmakers, 5%);
+}
+
+.grantmakers-color, .grantmakers-text {
+	color: $grantmakers !important;
+}
+
+/*
+a:not(.btn):not(.btn:hover) {
+	color: $grantmakers;
+}
+*/
+
+.disable-primary-color {
+	color: inherit !important;
+}
+
+/****************************
+Main body color
+*****************************/
+body.unified-search {
+  @extend .grey, .lighten-2;
+}
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
+	color: #333;
+	font-style: normal;
+}
+
+/****************************
+Helpers
+*****************************/
+/* Sitewide helpers */
+$accent-color: $grantmakers;
+$divider-color: #e0e0e0;
+$divider-color-dark: #bdbdbd;
+// $text-muted: #757575;
+// $text-muted-max: #9e9e9e;
+$text-muted: #424242;
+$text-muted-max: #757575;
+$text-color: rgba(0,0,0,0.87);
+.link-underline:hover {
+  text-decoration: underline;
+}
+.btn, .accent {
+  background-color: $accent-color;
+}
+.text-default {
+  color: $text-color;
+}
+.text-muted {
+  color: $text-muted !important;
+}
+.text-muted-max {
+  color: $text-muted-max !important;
+}
+.text-bold {
+  font-weight: 700;
+}
+.text-light, .text-thin {
+  font-weight: 300;
+}
+.accent-text {
+  color: $accent-color;
+}
+.small {
+  font-size: 85% !important;
+}
+.hidden {
+  display: none;
+}
+/* Apply flexbox to match height */
+@media #{$medium-and-up} {
+	.flex {
+		display: flex !important;
+	}
+	.flex-grow-1 {
+		flex-grow: 1 !important;
+	}
+	.flex-direction-column {
+		flex-direction: column;
+	}
+	.card-flex {
+		width: 100%;
+	}
+}
+.no-wrap, .text-nowrap {
+  white-space: nowrap;
+}
+.modal:focus {
+	outline: 0;
+}
+.container-custom {
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+	@media #{$large-and-up} {
+		width: 970px;
+	}
+	@media #{$extra-large-and-up} {
+		width: 1170px;
+	}
+}
+/* Tooltip styling */
+/* justify content */
+.material-tooltip {
+  span.left {
+    margin-right: 5px;
+  }
+}
+/* Alt styling - Uses material-kit for inspiration */
+/*
+.material-tooltip {
+  color: #555555;
+  font-size: 85%;
+  line-height: 1.5em;
+  background: #FFFFFF;
+  border: none;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+*/
+ol.striped {
+  li:nth-of-type(even) {
+    @extend .grey, .lighten-4;
+  }
+}
+.divider-no-margin {
+  margin: 0 !important;
+}
+.row-tight {
+  margin-bottom: 0;
+}
+/* Icon helpers */
+i.icon-idea {
+  transform: rotate(180deg);
+  margin-right: 5px;
+  vertical-align: sub;
+}
+i.material-icons-rounded {
+  border-radius: 50%;
+  padding-top: 1px;
+}
+i.md-18 {
+  font-size: 18px;
+}
+
+/* Animations */
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Inline lists */
+.list-inline {
+  list-style: none;
+}
+.list-inline > li {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+/* Clear browser defaults */
+.clear-browser-default-button button {
+  align-items: inherit;
+  text-align: inherit;
+  cursor: inherit;
+  color: inherit;
+  background-color: inherit;
+  box-sizing: inherit;
+  padding: inherit;
+  border-width: inherit;
+  border-style: inherit;
+  border-color: inherit;
+  border-image: inherit;
+}
+
+
+/****************************
+Layout
+*****************************/
+$searchBarHeight: 64px;
+header {
+  z-index: 996;
+  font-weight: 400;
+}
+main {
+  z-index: 995;
+  position: relative;
+  top: -$searchBarHeight;
+}
+canvas {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+/* Sticky Footer */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
+}
+#ais-widget-hits {
+  min-height: 300px;
+  // TODO Set min-height programmatically
+  @media screen and (min-height: 600px) {
+    min-height: 400px;
+  }
+  @media screen and (min-height: 800px) {
+    min-height: 600px;
+  }
+  @media screen and (min-height: 1000px) {
+    min-height: 800px;
+  }
+}
+
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 10%;
+	left:7%;
+	z-index: 2147483648; // Add 1 point to z-index of Drift widget
+	@media #{$small-and-down} {
+		left: 0;
+		bottom: 0;
+	}
+}
+
+/****************************
+Mimic Algolia theme - only the good parts
+*****************************/
+// But first, import Instantsearch.css reset
+// Could be pulled from jsDelivr, but not available on CDNJS
+@import 'reset';
+
+// Use these if NOT using algolia-theme
+.ais-CurrentRefinements-delete, .ais-CurrentRefinements-reset, .ais-GeoSearch-redo, .ais-GeoSearch-reset, .ais-HierarchicalMenu-showMore, .ais-InfiniteHits-loadMore, .ais-InfiniteResults-loadMore, .ais-Menu-showMore, .ais-RangeInput-submit, .ais-RefinementList-showMore, .ais-SearchBox-reset, .ais-SearchBox-submit {
+  padding: 0;
+  overflow: visible;
+  font: inherit;
+  line-height: normal;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.ais-ClearRefinements-button {
+  padding: 0 16px; // HACK due to @import reset. Used to match .btn class.
+}
+[class^=ais-] {
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.ais-SearchBox-form {
+  display: block;
+  position: relative;
+}
+.ais-SearchBox-loadingIndicator, .ais-SearchBox-reset, .ais-SearchBox-submit {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: absolute;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  right: .3rem;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.ais-SearchBox-submit {
+  left: .3rem;
+}
+.ais-SearchBox-submitIcon {
+  width: 14px;
+  height: 14px;
+}
+.ais-SearchBox-loadingIcon, .ais-SearchBox-resetIcon, .ais-SearchBox-submitIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+.ais-Highlight-highlighted, .ais-Snippet-highlighted {
+  background-color: lighten($accent-color, 50%); // Target color: #feebde
+  font-size: inherit !important;
+  color: inherit !important;
+}
+.grants-search-bg {
+  background-color: $grantmakers-secondary-accent !important;
+}
+.grants-search-text {
+  color: $grantmakers-secondary-accent !important;
+}
+.li-grants-search {
+  .ais-Highlight-highlighted, .ais-Snippet-highlighted {
+    background-color: #e3f4fb;
+    font-size: inherit !important;
+    color: inherit !important;
+  }
+}
+/****************************
+Page styling
+*****************************/
+/* Navbar */
+nav.navbar-unified-search {
+  background-color: transparent!important;
+  border-color: transparent!important;
+  box-shadow: none!important;
+  .collection {
+    margin: 0;
+    border: none;
+    border-radius:inherit;
+    .collection-item {
+      background-color: inherit;
+      min-height: inherit;
+      border-bottom: none;
+      // padding: inherit;
+      &.avatar {
+        padding-left: $searchBarHeight;
+        padding-top: 12px;
+        padding-bottom: 0;
+        .circle {
+          font-size: 18px;
+          position: absolute;
+          width: 35px;
+          height: 35px;
+          line-height: 36px;
+          overflow: hidden;
+          left: 15px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .title {
+          font-size: inherit;
+        }
+      }
+      a {
+        padding:0;
+        &:hover {
+          background-color: inherit;
+        }
+      }
+      
+      p {
+        line-height: 1rem;
+      }
+    }
+
+  }
+}
+nav .logo-container {
+  padding: 5px 0;
+  display: inline-block;
+}
+.logo-container .logo {
+  border: 0;
+  width: 50px;
+  height: 50px;
+  float: left;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.logo-container .brand {
+  font-size: 16px;
+  color: #FFFFFF;
+  line-height: 32px;
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 70px;
+  height: 40px;
+  text-align: left;
+}
+.brand-logo {
+  display: inline-block;
+  height: 100%;
+}
+@media only screen and (max-width: 992px) {
+  nav .brand-logo {
+    left: inherit;
+    transform: inherit;
+  }
+}
+nav.nav-center ul.ul-center {
+  text-align: center;
+}
+nav.nav-center ul.ul-center li {
+  display: inline-block;
+  float: none;
+}
+nav.nav-center ul.ul-center li .ais-search-box {
+  display: inline-block;
+}
+li.collection-item a.dropdown-trigger .valign-wrapper {
+	height: 35px; // HACK Match icon height - used in "More" icon in primary nav
+}
+ul.nav-primary.sidenav .sidenav-header a {
+  height: 100%;
+  padding: 0 10px;
+}
+ul#navbar-more.dropdown-content {
+  font-weight: 400;
+  li a {
+		@extend .text-default;
+	}
+	li.disabled {
+		&:hover {
+			background-color: transparent;
+			cursor: default;
+		}
+		a.title {
+			text-transform: uppercase;
+			font-size: 85%;
+		}
+	};
+}
+
+/* Hero */
+.intro {
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+}
+$parallax-height: 75vh;
+.parallax-container {
+  height: $parallax-height;
+  // top: -$searchBarHeight;
+}
+.overlay {
+  background: rgba(44,45,51,0.8);
+  background: linear-gradient(rgba(44,45,51,0.8), rgba(44,45,51,0.8));
+  background: -moz-linear-gradient(rgba(44,45,51,0.8), rgba(44,45,51,0.8));
+  background: -webkit-linear-gradient(rgba(44,45,51,0.8), rgba(44,45,51,0.8));
+}
+.parallax {
+  position: relative;
+}
+.parallax img {
+  object-fit: cover;
+}
+.intro {
+  height: $parallax-height;
+  .intro-text {
+    margin: auto;
+    z-index: 1;
+    h1 {
+      margin-bottom: 10px;
+    }
+    h5 {
+      font-weight: 300;
+    }
+    p {
+      font-weight: 300;
+    }
+  }
+}
+
+/* Searchbar */
+.nav-search {
+  height: $searchBarHeight;
+}
+.nav-search nav {
+  margin-bottom: 10px;
+  z-index: 3;
+}
+.nav-search nav.pinned {
+  width: 100%;
+  z-index: 3;
+}
+.nav-search .nav-wrapper {
+  padding: 0 15px;
+}
+
+/* Search toggle / select box */
+#search-toggle {
+  height: $searchBarHeight;
+  select {
+    cursor: pointer;
+    padding-left: 10px;
+    @extend .grantmakers;
+    &.grants-search {
+      @extend .blue-grey;
+    }
+    outline: none;
+    // Remove Safari gloss
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23ffffff'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
+    background-size: 12px;
+    background-position: calc(100% - 20px) center;
+    background-repeat: no-repeat;
+  }
+  // Can remove select-wrapper if using browser-default class
+  .select-wrapper {
+    height: 3rem;
+    position: relative; // HACK
+    left: 2px; // HACK
+    bottom: 2px; // HACK
+    border: none;
+    // box-shadow: none;
+    // box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    input {
+      border: none;
+      color: white;
+    }
+  }
+  .caret {
+    z-index: 1;
+    fill: white;
+  }
+  ul {
+    width: 200px;
+  }
+  .optgroup {
+    &:hover {
+      background-color: white;
+      cursor: default;
+    }
+    span {
+      font-size: 0.8rem;
+    }
+  }
+  .optgroup-option {
+    span {
+      color: $accent-color;
+      padding-left: 0;
+    }
+  }
+}
+
+/* Search box */
+.search-box-wrapper {
+  height: $searchBarHeight;
+}
+#ais-widget-search-box, *[id^='ais-widget-refinement-list'], .ais-ToggleRefinement {
+  .ais-SearchBox-submit {
+    height: 3rem; // HACK icon is still too low by a few pixels
+    &:hover {
+      cursor: default;
+    }
+  }
+  .ais-SearchBox-submitIcon, .ais-SearchBox-resetIcon, .ais-SearchBox-loadingIcon {
+    fill: $text-muted;
+    width: 16px;
+    height: 16px;
+  }
+  input {
+    width: calc(100% - 40px - 70px);
+    padding-left: 40px;
+    padding-right: 70px;
+    background-color: white;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 0;
+    border-radius: 3px;
+    @media #{$small-and-down} {
+      width: calc(100% - 80px);
+      padding-right: 40px;
+    }
+  }
+  input::placeholder {
+    color: $text-muted-max;
+  }
+  @media #{$medium-and-down} {
+    input {
+      &::placeholder {
+        font-size: 85%;
+      }
+      &::-webkit-input-placeholder {
+        transform:translate3d(0, 3px,0); // HACK
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 993px) {
+  .ais-SearchBox {
+    min-width: 400px;
+    margin: auto; // center
+  }
+}
+.ais-SearchBox-submit, .ais-SearchBox-reset {
+  &:focus {
+    background-color: white;
+  }
+}
+
+// TODO Improve search-box CSS naming conventions
+#ais-widget-search-box {
+  .ais-SearchBox-reset {
+    right: 3.5rem; // HACK Allows for more whitespace with dropdown menu
+    @media #{$small-and-down} {
+      right: 1rem;
+    }
+  }
+}
+#search-box-dropdown-trigger {
+  .search-box-dropdown-trigger-wrapper {
+    height: 34px;
+    width: 34px;
+    margin: auto;
+    margin-top: 14px;
+    border-radius: 50%;
+    text-align: center;
+    &:hover {
+      @extend .grey, .lighten-3;
+    }
+    // TODO Make the dropdown active state more conspicuous
+    // TODO Enable when other prospecting / advanced search features are enabled
+    &.adjusted {
+      @extend .z-depth-1;
+      @extend .grey, .lighten-3;
+    }
+  }
+  a {
+    width: 100%;
+    color: $text-color;
+  }
+  position: relative;
+  float: right;
+  top: -$searchBarHeight;
+  margin-right: 10px;
+  #search-box-dropdown {
+    width: 275px;
+    text-align: left;
+    border-radius: 3px;
+  }
+  .dropdown-wrapper {
+    padding: 0 20px;
+  }
+  .dropdown-header {
+    color: $text-muted-max;
+  }
+  label {
+    color: $text-color;
+  }
+}
+.search-box-dropdown-wrapper {
+  position: relative;
+  top: -7px;
+  border-radius: 3px;
+}
+
+#search-box-dropdown {
+  .dropdown-wrapper:focus {
+    outline: none;
+  }
+  .dropdown-header {
+    // height: 55px; // Reduces whitespace
+  }
+  .checkbox-only, #select-all {
+    @extend .blue-grey-text;
+    font-size: 0.8rem; // Match label font-size
+    padding: 0;
+    margin-left: 7px;
+    visibility: hidden;
+  }
+  #select-all {
+    visibility: visible;
+    margin: auto; // Assumes li wrapper contains text
+    font-weight: 400;
+  }
+  // If adding "only" button, unhide cursor values below
+  #dropdown-body li {
+    cursor: default;
+  }
+  #dropdown-body li label span {
+    cursor: default;
+  }
+  #dropdown-body li span.checkbox-only, span#select-all {
+    cursor: pointer;
+  }
+  #dropdown-body li:hover {
+    @extend .grey, .lighten-5;
+    .checkbox-only {
+      visibility: visible;
+    }
+  }
+}
+
+#powered-by {
+  height: $searchBarHeight; 
+  .ais-PoweredBy {
+    height: 100%;
+  }
+}
+
+/* Results wrapper */
+.section-raised {
+  position: relative; // For 'try it' tips positioning
+  margin: 0px 15px 0px;
+  border-radius: 6px;
+  @media screen and (min-width: 993px) {
+    margin: 0px 30px 0px;
+    padding-top: 3rem;
+    min-height: 470px;
+  }
+
+  .divider {
+    margin-bottom: 0.5rem; // improve spacing - doubles 0.5rem card default
+  }
+}
+
+/* Stats */
+.ais-Stats-text span {
+  @media #{$medium-and-down} {
+    display: none;
+  }
+  &:before {
+    content: "(";
+  }
+  &:after {
+    content: ")"
+  }
+  //display: none;
+}
+
+/* Search tips modal */
+#modal-tips {
+  .modal-content {
+    padding: 0;
+  }
+  .card-search-tips {
+    margin: 0;
+  }
+}
+/* Search tips card */
+.card-search-tips { // TODO Change naming convention to create new global icon (e.g. material-icons-idea)
+  .card-header {
+    padding: 16px 24px; // Match card-content spacing
+    border-radius: 2px 2px 0px 0px;
+    i {
+      font-size: 18px;
+    }
+  }
+  .divider {
+    margin: 1rem 0;
+  }
+  ul.search-details-header {
+    margin-bottom: 0.5rem;
+  }
+  ul.search-details-content {
+    margin-left: calc(24px + 15px);
+    margin-top: 0;
+    padding: 12px 18px;
+    li:first-child {
+      text-transform: uppercase;
+      // font-weight: bold;
+      // color: #9e9e9e; // TODO This should be default text-muted (but current text-muted is too dark)
+      // text-decoration: underline solid $text-muted-max;
+    }
+  }
+}
+
+/* Dataset info card */
+#dataset-info {
+  .collapsible {
+    border: none;
+  }
+  .collapsible-header {
+    padding: 0.5rem 0rem;
+    border: none;
+    @extend .grey, .lighten-4;
+    // @extend .white-text;
+    i {
+      margin-right: 0;
+      line-height: 1.25rem;
+      width: 1.5rem;
+    }
+  }
+  .collapsible-body {
+    padding: 1rem;
+    border: none;
+    @extend .grey, .lighten-4;
+  }
+  ul li {
+    font-size: 13px;
+  }
+  ul li h6 {
+    font-size: 14px;
+  }
+  p {
+    font-size: 85%;
+    color: $text-muted-max;
+  }
+}
+
+/* Current Refinements */
+#ais-widget-current-refined-values {
+  ul {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    &:empty {
+      margin-top: 0px;
+    }
+  }
+  ul li {
+    margin: 0;
+    // margin-right: 0.5rem;
+    // margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0px 2px;
+    max-width: 100%; // Allows for adding truncate class to button
+    button {
+      max-width: 100%; // Allows for adding truncate class
+    }
+  }
+  .btn:hover {
+    background-color: $grantmakers;
+  }
+  .ais-CurrentRefinements-label {
+    font-size: 85%;
+  }
+  .ais-CurrentRefinements-category {
+    padding-left: 5px;
+  }
+}
+
+/* Hits */
+/* Profiles */
+.hit-summary-icons i.material-icons {
+  @extend .grey-text, .text-lighten-3;
+  &:hover {
+    cursor: default;
+  }
+}
+.hit-summary-icons i.material-icons-active {
+  @extend .grantmakers-text;
+}
+a.hit-name {
+  color: $text-color;
+  &:hover{ 
+    @extend .grantmakers-text;
+  }
+}
+.hit-summary-financials {
+  margin-top: 20px; // Match row bottom margin spacing
+  padding-left: 10px !important;
+  padding-right: 10px;
+  li {
+   // padding-left: 15px;
+  }
+  h6 small {
+    font-weight: 300;
+  }
+}
+.hits-people {
+  padding-top: 20px;
+  mark {
+    background-color: lighten($accent-color, 50%); // Target color: #feebde
+    font-size: inherit !important;
+    color: inherit !important;
+  }
+} 
+/* Grants Search */
+/* Refinements */
+.grants-search {
+  [type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid $grantmakers-secondary-accent;
+    background-color: $grantmakers-secondary-accent;
+  }
+  .ais-RefinementList-item--selected {
+    label span {
+      color: $grantmakers-secondary-accent;
+    }
+  }
+  .ais-RefinementList-labelText mark {
+    background-color: #e3f4fb;
+  }
+  .ais-ClearRefinements-button {
+    // background color adjusted in instantsearch
+  }
+}
+/* Hits */
+.card-grants-search #ais-widget-hits {
+  
+  .card-content {
+    padding: 2rem;
+  }
+  .ais-Hits-item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .ais-Hits-item a {
+    color: $text-color;
+    &:hover {
+      color: $grantmakers-secondary-accent;
+    }
+    @media #{$medium-and-down} {
+      white-space: normal;
+    }
+  }
+  .ais-Hits-item .row {
+    margin-bottom: 0;
+  }
+  li.li-grants-hits {
+    padding: 1rem;
+    padding-right: 0rem; // HACK Only works if using col m1 strategy for icon
+    border-bottom: 1px solid $divider-color;
+    &:last-child {
+      border: none;
+    } 
+  }
+  .row-grant-names {
+    margin-bottom: 5px;
+    .actions-wrapper ul.dropdown-content li {
+      a:hover {
+        background-color: white;
+      }
+    }
+    .actions-wrapper ul.dropdown-content li i {
+      margin-right: 12px;
+    }
+  }
+  .grant-purpose {
+    margin-top: 1rem;
+  }
+  .modal {
+    .modal-algolia-hit-label {
+      font-size: 85%;
+      color: $text-muted-max;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    h5 {
+      margin-top: 0px;
+      margin-bottom: 2rem;
+    }
+  }
+}
+/* Pagination */
+#ais-widget-pagination.grants-search {
+  .pagination li.active {
+    background-color: $grantmakers-secondary;
+  }
+}
+
+/* Empty Hits */
+
+/* Refinements */
+.switch-refinements {
+  &.switch label .lever {
+    margin-left: 5px;
+    margin-right: 0px;
+  }
+  label input[type=checkbox]:checked + .lever {
+    background-color: #84c7c1;
+  }
+  label .lever:before {
+    background-color: rgba(38,166,154,0.15);
+  }
+  label input[type=checkbox]:checked + .lever:after {
+    background-color: #26a69a;
+  }
+}
+
+/* Range Slider */
+.ais-RangeSlider .rheostat-progress {
+  @extend .blue-grey;
+}
+
+/* Range Input */
+/* See also Range Input below */
+.input-algolia {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 3px !important;
+  border-bottom: none !important;
+  height: 2rem !important;
+  width: 7rem !important;
+  margin: 0 10px !important;
+  padding-left: 0.5rem !important;
+  &:focus {
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+  }
+  &.ais-RangeInput-input--min {
+    margin-left: 0px !important;
+  }
+}
+#range-input-helpers {
+  height: 1.5rem;
+  padding-left: 1rem;
+  font-size: 60%;
+  color: $text-muted-max;
+  position: relative;
+  bottom: 20px;
+  left: -5px;
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+  #range-input-helper-max {
+    position: relative;
+    left: 110px; // TODO HACK
+  }
+}
+// HACK
+#ais-widget-range-slider {
+  .card-header {
+    padding: 0;
+  }
+}
+
+// Set initial Advanced Tools toggle state
+#algolia-hits-wrapper.js-hide-advanced-tools {
+  #ais-widget-range-input {
+    display: none;
+  }
+}
+
+.section-refinements {
+  .ais-Panel-header {
+    i.material-icons {
+      font-size: 18px;
+      &.modal-trigger:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .card {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .card-header {
+    padding: 24px 0 0 0;
+    border-radius: 2px 2px 0px 0px;
+    text-transform: uppercase;
+    border-bottom: 1px solid $divider-color;
+    @media #{$medium-and-down} {
+      padding: 0 0 0 10px;
+    }
+  }
+  .card-content {
+    padding: 8px 0px;
+    border-radius: 0 0 2px 2px;
+  }
+  .ais-RefinementList-searchBox .ais-SearchBox {
+    min-width: inherit;
+    input {
+      background-color: white;
+      border: none;
+      box-shadow: none;
+      border-radius: 3px;
+      border-bottom: none;
+      height: 2rem;
+      width: calc(100% - 30px) !important;
+      padding-left: 30px;
+      &:focus {
+        border-bottom: 0;
+        box-shadow: none;
+      }
+    }
+    button {
+      height: 2rem;
+      top: 40%; // HACK
+      .ais-SearchBox-resetIcon {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+  label {
+    color: $text-color;
+  }
+  .ais-RefinementList-count {
+    height: 25px;
+    line-height: 25px;
+  }
+  li.ais-RefinementList-item {
+    clear: both;
+    @media #{$medium-and-down} {
+      height: 2rem;
+      line-height: 2rem;
+    }
+  }
+  .ais-RefinementList-labelText {
+    width: 80%;
+  }
+  /* Range Input - Shared across profiles and grants search*/
+  .ais-RangeInput {
+    input {
+      height: 2rem;
+      padding: 0 10px;
+      border: none;
+      border-radius: 2px;
+      background-color: white;
+      &:focus {
+        border-bottom: none !important;
+        box-shadow: none !important;
+      }
+    }
+    // Hide stepper for UX reasons. No "typical" selection + values are large.
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    button {
+      height: 2rem;
+      padding: 0 5px
+    }
+  }
+  &.section-refinements-profiles-search {
+    .ais-RefinementList-item--selected {
+      label span {
+        color: $grantmakers;
+      }
+    }
+    .ais-RefinementList-labelText mark {
+      background-color: #e3f4fb;
+    }
+    .label-wrapper {
+      margin-bottom: 8px;
+    }
+    .ais-RangeInput form {
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: normal;
+      label {
+        width: 100%;
+      }
+      input {
+        max-width: 60%;
+        margin: 0;
+        margin-right: 10px;
+      }
+    }
+  }
+  &.section-refinements-grants-search {
+    .ais-RangeInput {
+      label {
+        width: 40%; // Increase spacing
+      }
+      input {
+        width: unset;
+        width: 75%; // Increase spacing
+        height: 2rem;
+        margin: 0 10px;
+        padding: 0 10px;
+        border: none;
+        border-radius: 2px;
+        background-color: white;
+        &:focus {
+          border-bottom: none !important;
+          box-shadow: none !important;
+        }
+      }
+      label:first-child input {
+        margin-left: 0;
+        padding-right: 15px; // Increase spacing
+      }
+      button {
+        height: 2rem;
+        padding: 0 5px
+      }
+    }
+    .ais-Panel-footer {
+      padding-left: 10px;
+    }
+    #range-footer-min, #range-footer-max {
+      // animation: fadein 1s;
+    }
+  }
+  button.ais-RefinementList-showMore {
+    text-transform: none;
+  }
+  button.ais-RefinementList-showMore:focus {
+    background-color: transparent !important;
+  }
+}
+/* Mobile Refinements */
+#refinements-slide-out {
+  .ais-Panel.card {
+    margin: 0;
+  }
+  .ais-Panel-body.card-content {
+    padding: 10px;
+  }
+}
+
+/* Clear all */
+.btn-custom {
+  &:hover {
+    background-color: #e3f4fb;
+  }
+}
+
+/* Pagination */
+.pagination li.active {
+  background-color: $grantmakers;
+}
+.pagination {
+  .disabled {
+    visibility: hidden;
+  }
+}
+.ais-Pagination-list {
+  display: inherit;
+}
+
+// http://maxdesign.com.au/articles/simple-responsive-table/
+.responsive-table-wrapper {
+	width: 100%;
+	overflow-y: auto;
+	_overflow: auto;
+	margin: 0 0 1em;
+}
+
+.responsive-table-wrapper::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 14px;
+	height: 14px;
+}
+
+.responsive-table-wrapper::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, .3);
+}
+
+/* Footer */
+footer {
+	.row-footer-primary-nav {
+		margin-top: 100px;
+		margin-bottom: 100px;
+		h6 {
+			font-weight: 400;
+			line-height: 50px;
+		}
+		p:first-of-type {
+			margin-top: 0px;
+    }
+    p, p a {
+      font-weight: 300;
+    }
+		p a {
+      color: $text-color !important; // HACK
+			&:hover {
+				@extend .blue-grey-text;
+			}
+		}
+	}
+	.footer-secondary-nav-icons {
+		height: 48px; // HACK
+		li a {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+	.text-default {
+		color: $text-color !important; // HACK
+		&:hover {
+			@extend .blue-grey-text;
+		}
+	}
+	@media #{$medium-and-down} {
+		.row-footer-primary-nav {
+			margin-top: 40px;
+			margin-bottom: 40px;
+		}
+		.row-footer-secondary-nav {
+			.left-align, .copyright {
+				text-align: center !important;
+			}
+		}
+	}
+}
+
+footer ul li {
+	display: inline-block;
+}
+
+footer ul li a {
+	color: inherit !important;
+	padding: 15px;
+	font-weight: 500;
+	font-size: 12px;
+	text-transform: uppercase;
+	border-radius: 3px;
+	text-decoration: none;
+	position: relative;
+	display: block;
+	&:hover {
+		@extend .blue-grey-text;
+	}
+}
+
+footer .copyright {
+	margin: 15px 0;
+	padding: 15px 0;
+	font-size: 14px;
+	.material-icons {
+	font-size: 14px;
+	vertical-align: middle;
+	//position: relative;
+	//top: 3px;
+	}
+}
+
+.footer-terms {
+	background-color: $gray;
+	color: $gray-light !important;
+	position: absolute;
+	width: 100%;
+	.row {
+		margin: 0; //Feels like a HACK
+	}
+	ul {
+		margin: 5px 0;
+		li {
+			padding-left: 15px;
+		}
+		li a {
+			padding: 0;
+			display: inline;
+			font-weight: inherit;
+			font-size: inherit;
+			text-transform: inherit;
+		}
+	}
+	a {
+		color: $gray-light !important;
+	}
+}

@@ -1,16 +1,47 @@
-title: Climind Database for NbS
-description: Search-oriented Database for Nature-based Solutions
-theme: just-the-docs
-logo: "/assets/logo.jpg"
-# color_scheme: dark
+# Note: Local Grantmakers.io development requires a _config_development.yml with local Algolia API keys
+# bundle exec jekyll serve --livereload --config _config.yml,_config_development.yml
 
-url: https://climind.github.io/soda
+# Site settings
+# Meta tags
+title: climind.co
+description: Quickly find climate datasets from 109,000 sources in the world. 
 
-# Aux links for the upper right navigation
-aux_links:
-  Visit Climind: https://climind.co
-# Makes Aux links open in a new tab. Default is false
-aux_links_new_tab: true
+# Jekyll settings
+baseurl: # Leave this blank unless your site is located on a subpath, e.g. /blog
+url: https://www.climind.co/soda
+sass:
+  sass_dir: assets/css/_sass
+plugins:
+  - jekyll-redirect-from
 
-liquid:
-  error_mode: warn
+# Google Analytics
+google_analytics: G-RV3RW7CWQB
+
+# Algolia Link
+algolia_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
+
+# Algolia Public API Search Keys
+algolia_public_key_grants: 96a419d65f67ff3b4c54939f8e90c220
+algolia_public_key_profiles: ce4d584b0de36ca3f8b4727fdb83c658
+
+number_of_filings: 541250
+number_of_foundations: 109121
+number_of_grants: 6886416
+number_of_searchable_grants: 5473466
+# searchable grants figure pulled directly from Algolia
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - node_modules
+  - package-lock.json
+  - package.json
+  - scripts/
+  - data/ #Note: does not affect _data folder
+  - vendor/

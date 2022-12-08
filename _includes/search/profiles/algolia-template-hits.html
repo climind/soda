@@ -1,0 +1,80 @@
+{% raw %}
+  <div class="card">
+    <div class="card-content">
+      <div class="row">
+        <div class="col s6">
+          <ul class="inline-list hit-summary-icons">
+            <li class="left">
+              <i class="material-icons {{#has_recent_grants}}material-icons-active{{/has_recent_grants}} tooltipped" {{#has_recent_grants}} data-tooltip="Has recent grants"{{/has_recent_grants}}{{^has_recent_grants}} data-tooltip="No recent grants"{{/has_recent_grants}}>monetization_on</i>
+            </li>
+            <li class="left">
+              <i class="material-icons {{#is_likely_staffed}}material-icons-active{{/is_likely_staffed}} tooltipped" {{#is_likely_staffed}} data-tooltip="Is likely staffed"{{/is_likely_staffed}}{{^is_likely_staffed}} data-tooltip="No paid, full-time staff<br>listed in tax return"{{/is_likely_staffed}}>account_circle</i>
+            </li>
+            <li class="left">
+              {{#website}}
+                {{#website_is_an_email}}
+                <i class="material-icons tooltipped" data-tooltip="No website available">public</i>
+                {{/website_is_an_email}}
+                {{^website_is_an_email}}
+                <i class="material-icons material-icons-active website tooltipped" data-tooltip="Website available">public</i>
+                {{/website_is_an_email}}
+              {{/website}}
+              {{^website}}
+              <i class="material-icons tooltipped" data-tooltip="No website available">public</i>
+              {{/website}}
+            </li>
+            <li class="left">
+              {{#grants_to_preselected_only}}
+              <i class="material-icons tooltipped" data-tooltip="Grants to preselected organizations only.<br>Part XV Line 2 is checked.">lock</i>
+              {{/grants_to_preselected_only}}
+              {{^grants_to_preselected_only}}
+              <i class="material-icons material-icons-active tooltipped" data-tooltip="Possibly accepts unsolicited applications.<br>Part XV Line 2 is unchecked.">lock_open</i>
+              {{/grants_to_preselected_only}}
+            </li>
+          </ul>
+        </div>
+        <div class="col s6 right-align">
+          <span class="text-light tooltipped" data-tooltip="EIN">{{ ein_formatted }}</span>
+        </div>
+      </div>
+      <span class="card-title">
+        {{#_highlightResult.organization_name}}
+        <a class="hit-name" href="https://grantmakers.io/profiles/{{ ein }}" title="View Profile">{{#helpers.highlight}}{ "attribute": "organization_name" }{{/helpers.highlight}}</a>
+        {{/_highlightResult.organization_name}}
+        {{^_highlightResult.organization_name}}
+        <a class="hit-name" href="https://grantmakers.io/profiles/{{ ein }}" title="View Profile">{{{organization_name}}}</a>
+        {{/_highlightResult.organization_name}}
+      </span>
+      {{#_highlightResult.city}}
+      <p class="grantmakers-text">{{#helpers.highlight}}{ "attribute": "city" }{{/helpers.highlight}}, {{#helpers.highlight}}{ "attribute": "state" }{{/helpers.highlight}}</p>
+      {{/_highlightResult.city}}
+      {{^_highlightResult.city}}
+      <p class="grantmakers-text">{{{city}}}, {{{state}}}</p>
+      {{/_highlightResult.city}}
+      {{#hits_people.length}}
+      <div class="hits-people text-light">
+        <div class="small">People matches</div>
+        {{#hits_people}}
+        <div>{{{name}}} - {{{title}}}</div>
+        {{/hits_people}}
+      </div>
+      {{/hits_people.length}}
+      <ul class="list-inline hit-summary-financials grey lighten-4">
+        <li>
+          <h6 class="text-muted">{{ assets }}<br><small>Total Assets</small></h6>
+        </li>
+        <li class="right center">
+          {{#grants_reference_attachment}}
+          <h6 class="text-muted tooltipped" data-tooltip="Additional grant details may be available<br>in tax filing attachments">{{ grant_count }}*<br><small>Grant{{^grant_count_only_one}}s{{/grant_count_only_one}}</small></h6>
+          {{/grants_reference_attachment}}
+          {{^grants_reference_attachment}}
+          <h6 class="text-muted tooltipped" data-tooltip="No. of grants listed in<br>latest tax filing<br>FY {{filings.0.tax_year}}">{{ grant_count }}{{#grants_reference_attachment}}*{{/grants_reference_attachment}}<br><small>Grant{{^grant_count_only_one}}s{{/grant_count_only_one}}</small></h6>
+          {{/grants_reference_attachment}}
+        </li>
+        <li class="right center">
+          <h6 class="text-muted tooltipped" data-tooltip="<span class='left'>Max </span><span class='right'>{{grant_max}}</span><br><span class='left'>Min </span><span class='right'>{{grant_min}}</span>">{{ grant_median }}<br><small>Median Grant</small></h6>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endraw %}
