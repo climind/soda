@@ -20,7 +20,7 @@
     <!-- Open Graph -->
     <meta property="og:image" content="http://localhost:4000/assets/img/og-image.png" />
     <meta property="og:title" content="climind.co" />
-    <meta property="og:site_name" content="Grantmakers.io" />
+    <meta property="og:site_name" content="climind.co" />
     <meta property="og:url" content="http://localhost:4000/search" />
     <meta property="og:description" content="Quickly find climate datasets from 109,000 sources in the world." />
     <meta property="og:type" content="website" />
@@ -136,29 +136,29 @@
                     <ul id="dropdown-body">
                       <li class="valign-wrapper">
                         <label>
-                        <input id="organization_name" type="checkbox" class="filled-in" checked="checked" />
-                        <span>Project Developer</span>
+                        <input id="menu_name" type="checkbox" class="filled-in" checked="checked" />
+                        <span>数据名称</span>
                         </label>
                         <span class="checkbox-only" data-attribute="organization_name">only</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
-                        <input id="grantee_name" type="checkbox" class="filled-in" checked="checked" />
-                        <span>Project Site</span>
+                        <input id="data_source" type="checkbox" class="filled-in" checked="checked" />
+                        <span>数据源链接</span>
                         </label>
                         <span class="checkbox-only" data-attribute="grantee_name">only</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
-                        <input id="grantee_city" type="checkbox" class="filled-in" checked="checked" />
-                        <span>Project Owner</span>
+                        <input id="first_level" type="checkbox" class="filled-in" checked="checked" />
+                        <span>一级分类</span>
                         </label>
                         <span class="checkbox-only" data-attribute="grantee_city">only</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
-                        <input id="grant_purpose" type="checkbox" class="filled-in" checked="checked" />
-                        <span>ARB ID</span>
+                        <input id="second_level" type="checkbox" class="filled-in" checked="checked" />
+                        <span>二级分类</span>
                         </label>
                         <span class="checkbox-only" data-attribute="grant_purpose">only</span>
                       </li>
@@ -236,10 +236,14 @@
               <div> <!-- Add row class to remove added white space / padding -->
                 <div class="col s12">
                   <div id="ais-widget-range-input"></div>
-                  <div id="ais-widget-refinement-list--grantee_name"></div>
-                  <div id="ais-widget-refinement-list--organization_name"></div>
-                  <div id="ais-widget-refinement-list--grantee_city"></div>
-                  <div id="ais-widget-refinement-list--grantee_state"></div>
+                  <div id="ais-widget-refinement-list--menu_name"></div>
+                  <div id="ais-widget-refinement-list--data_source"></div>
+                  <div id="ais-widget-refinement-list--first_level"></div>
+                  <div id="ais-widget-refinement-list--second_level"></div>
+                  <div id="ais-widget-refinement-list--status"></div>
+                  <div id="ais-widget-refinement-list--institute"></div>
+                  <div id="ais-widget-refinement-list--intro_en"></div>
+                  <div id="ais-widget-refinement-list--intro_cn"></div>
                 </div>
                 <div class="col s12">
                   <div class="section">
@@ -273,22 +277,25 @@
                   <div class="card-content"> <!-- Use class card-content for grants results-->
                     <div class="row row-tight hide-on-small-only">
                       <div class="col m2">
-                        Project ID
+                        数据名称
                       </div>
                       <div class="col m2">
-                        Project Owner
+                        数据源链接
                       </div>
                       <div class="col m2">
-                        Project Name
+                        一级分类
                       </div>
                       <div class="col m2">
-                        Project Type
+                        二级分类
+                      </div>
+                      <div class="col m1">
+                        状态
+                      </div>
+                      <div class="col m1">
+                        机构
                       </div>
                       <div class="col m2">
-                        Project Site
-                      </div>
-                      <div class="col m2">
-                        Project Website
+                        简介(En)
                       </div>
                       <div class="col m12 divider"></div>
                     </div>

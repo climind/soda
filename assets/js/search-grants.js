@@ -1,5 +1,3 @@
----
----
 function ready(fn) {
   if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
     fn();
@@ -56,28 +54,40 @@ ready(function() {
 
   // ALGOLIA
   // ==============
-  const searchClient = algoliasearch('QA1231C5W9', '{{ site.algolia_public_key_grants }}');
-  const algoliaIndex = 'grantmakers_io';
+  const searchClient = algoliasearch('8G5L7EK4L9', 'a411a62a81314cb6985e0a071b893f54');
+  const algoliaIndex = 'new-index-1670622857';
   const facets = [
     {
-      'facet': 'grantee_name',
-      'label': 'Recipient',
+      'facet': 'menu_name',
+      'label': '数据名称(菜单栏)',
     },
     {
-      'facet': 'organization_name',
-      'label': 'Donor',
+      'facet': 'data_source',
+      'label': '数据源链接',
     },
     {
-      'facet': 'grantee_city',
-      'label': 'Recipient City',
+      'facet': 'first_level',
+      'label': '一级分类',
     },
     {
-      'facet': 'grantee_state',
-      'label': 'Recipient State',
+      'facet': 'second_level',
+      'label': '二级分类(数据名称或者其简写)',
     },
     {
-      'facet': 'grant_amount',
-      'label': 'Amount',
+      'facet': 'status',
+      'label': 'Status',
+    },
+    {
+      'facet': 'institute',
+      'label': '机构',
+    },
+    {
+      'facet': 'intro_en',
+      'label': '一段话介绍-EN',
+    },
+    {
+      'facet': 'intro_cn',
+      'label': '一段话介绍 - 中文',
     },
   ];
 
@@ -117,26 +127,38 @@ ready(function() {
           const indexUiState = uiState[algoliaIndex];
           return {
             'query': indexUiState.query,
-            'grantee_name':
+            'menu_name':
               indexUiState.refinementList &&
-              indexUiState.refinementList.grantee_name &&
-              indexUiState.refinementList.grantee_name.join('~'),
-            'organization_name':
+              indexUiState.refinementList.menu_name &&
+              indexUiState.refinementList.menu_name.join('~'),
+            'data_source':
               indexUiState.refinementList &&
-              indexUiState.refinementList.organization_name &&
-              indexUiState.refinementList.organization_name.join('~'),
-            'grantee_city':
+              indexUiState.refinementList.data_source &&
+              indexUiState.refinementList.data_source.join('~'),
+            'first_level':
               indexUiState.refinementList &&
-              indexUiState.refinementList.grantee_city &&
-              indexUiState.refinementList.grantee_city.join('~'),
-            'grantee_state':
+              indexUiState.refinementList.first_level &&
+              indexUiState.refinementList.first_level.join('~'),
+            'second_level':
               indexUiState.refinementList &&
-              indexUiState.refinementList.grantee_state &&
-              indexUiState.refinementList.grantee_state.join('~'),
-            'grant_amount':
-              indexUiState.range &&
-              indexUiState.range.grant_amount &&
-              indexUiState.range.grant_amount.replace(':', '~'),
+              indexUiState.refinementList.second_level &&
+              indexUiState.refinementList.second_level.join('~'),
+            'status':
+              indexUiState.refinementList &&
+              indexUiState.refinementList.status &&
+              indexUiState.refinementList.status.join('~'),
+            'institute':
+              indexUiState.refinementList &&
+              indexUiState.refinementList.institute &&
+              indexUiState.refinementList.institute.join('~'),
+            'intro_en':
+              indexUiState.refinementList &&
+              indexUiState.refinementList.intro_en &&
+              indexUiState.refinementList.intro_en.join('~'),
+            'intro_cn':
+              indexUiState.refinementList &&
+              indexUiState.refinementList.intro_cn &&
+              indexUiState.refinementList.intro_cn.join('~'),
             'page': indexUiState.page,
           };
         },
@@ -149,13 +171,14 @@ ready(function() {
             [algoliaIndex]: {
               'query': routeState.query,
               'refinementList': {
-                'grantee_name': routeState.grantee_name && routeState.grantee_name.split('~'),
-                'organization_name': routeState.organization_name && routeState.organization_name.split('~'),
-                'grantee_city': routeState.grantee_city && routeState.grantee_city.split('~'),
-                'grantee_state': routeState.grantee_state && routeState.grantee_state.split('~'),
-              },
-              'range': {
-                'grant_amount': routeState.grant_amount && routeState.grant_amount.replace('~', ':'),
+                'menu_name': routeState.menu_name && routeState.menu_name.split('~'),
+                'data_source': routeState.data_source && routeState.data_source.split('~'),
+                'first_level': routeState.first_level && routeState.first_level.split('~'),
+                'second_level': routeState.second_level && routeState.second_level.split('~'),
+                'status': routeState.status && routeState.status.split('~'),
+                'institute': routeState.institute && routeState.institute.split('~'),
+                'intro_en': routeState.intro_en && routeState.intro_en.split('~'),
+                'intro_cn': routeState.intro_cn && routeState.intro_cn.split('~'),
               },
               'page': routeState.page,
             },
@@ -174,11 +197,14 @@ ready(function() {
 
   // Define default search parameters
   const defaultSearchableAttributes = [
-    'organization_name',
-    'grantee_name',
-    'grantee_city',
-    'grantee_state',
-    'grant_purpose',
+    'menu_name',
+    'data_source',
+    'first_level',
+    'second_level',
+    'status',
+    'institute',
+    'intro_en',
+    'intro_cn',
   ];
 
   /* ---------------------------- */
@@ -217,7 +243,7 @@ ready(function() {
           // TODO Add logic to handle city + state
           // Currently assumes state will always remain in searchable attributes
           refine({
-            'restrictSearchableAttributes': [attribute, 'grantee_state'],
+            'restrictSearchableAttributes': [attribute, 'menu_state'],
           });
         });
       });
@@ -268,7 +294,7 @@ ready(function() {
     const triggerEl = document.getElementById('search-box-dropdown-trigger').querySelector('.search-box-dropdown-trigger-wrapper');
     if (widgetParams.searchParameters.restrictSearchableAttributes.length === 5) {
       triggerEl.classList.remove('adjusted');
-      inputEl.placeholder = 'Search by keywords, location, or grantee name';
+      inputEl.placeholder = 'Search by keywords, locations, or project names';
     } else {
       triggerEl.classList.add('adjusted');
       inputEl.placeholder = 'Search by custom fields selected';
@@ -423,10 +449,6 @@ ready(function() {
   /* Create all other refinements */
   /* ---------------------------- */
   facets.forEach((refinement) => {
-    // Amount handled by range widget
-    if (refinement.facet === 'grant_amount') {
-      return;
-    }
     const refinementListWithPanel = instantsearch.widgets.panel({
       'templates': {
         'header': refinement.label,
@@ -569,11 +591,14 @@ ready(function() {
       'searchParameters': {
         'hitsPerPage': 12,
         'restrictSearchableAttributes': [
-          'grantee_name',
-          'grant_purpose',
-          'grantee_city',
-          'grantee_state',
-          'organization_name',
+          'menu_name',
+          'data_source',
+          'first_level',
+          'second_level',
+          'status',
+          'institute',
+          'intro_en',
+          'intro_cn',
         ],
       },
     }),
@@ -593,12 +618,6 @@ ready(function() {
         'list': 'striped row',
         'item': ['col', 's12', 'li-grants-search'],
       },
-      transformItems(items) {
-        return items.map(item => ({
-          ...item,
-          'grant_amount': `$${item.grant_amount.toLocaleString()}`,
-        }));
-      },
     }),
 
     instantsearch.widgets.stats({
@@ -609,11 +628,6 @@ ready(function() {
       'cssClasses': {
         'text': 'text-muted',
       },
-    }),
-
-    customRangeInputWithPanel({
-      'container': document.querySelector('#ais-widget-range-input'),
-      'attribute': 'grant_amount',
     }),
 
     customCurrentRefinements({

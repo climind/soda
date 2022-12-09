@@ -54,28 +54,40 @@ ready(function() {
 
   // ALGOLIA
   // ==============
-  const searchClient = algoliasearch('QA1231C5W9', '96a419d65f67ff3b4c54939f8e90c220');
-  const algoliaIndex = 'grantmakers_io';
+  const searchClient = algoliasearch('8G5L7EK4L9', 'a411a62a81314cb6985e0a071b893f54');
+  const algoliaIndex = 'new-index-1670622857';
   const facets = [
     {
-      'facet': 'grantee_name',
-      'label': 'Recipient',
+      'facet': 'menu_name',
+      'label': '数据名称(菜单栏)',
     },
     {
-      'facet': 'organization_name',
-      'label': 'Donor',
+      'facet': 'data_source',
+      'label': '数据源链接',
     },
     {
-      'facet': 'grantee_city',
-      'label': 'Recipient City',
+      'facet': 'first_level',
+      'label': '一级分类',
     },
     {
-      'facet': 'grantee_state',
-      'label': 'Recipient State',
+      'facet': 'second_level',
+      'label': '二级分类(数据名称或者其简写)',
     },
     {
-      'facet': 'grant_amount',
-      'label': 'Amount',
+      'facet': 'status',
+      'label': 'Status',
+    },
+    {
+      'facet': 'institute',
+      'label': '机构',
+    },
+    {
+      'facet': 'intro_en',
+      'label': '一段话介绍-EN',
+    },
+    {
+      'facet': 'intro_cn',
+      'label': '一段话介绍 - 中文',
     },
   ];
 
@@ -115,26 +127,38 @@ ready(function() {
           const indexUiState = uiState[algoliaIndex];
           return {
             'query': indexUiState.query,
-            'grantee_name':
+            'menu_name':
               indexUiState.refinementList &&
-              indexUiState.refinementList.grantee_name &&
-              indexUiState.refinementList.grantee_name.join('~'),
-            'organization_name':
+              indexUiState.refinementList.menu_name &&
+              indexUiState.refinementList.menu_name.join('~'),
+            'data_source':
               indexUiState.refinementList &&
-              indexUiState.refinementList.organization_name &&
-              indexUiState.refinementList.organization_name.join('~'),
-            'grantee_city':
+              indexUiState.refinementList.data_source &&
+              indexUiState.refinementList.data_source.join('~'),
+            'first_level':
               indexUiState.refinementList &&
-              indexUiState.refinementList.grantee_city &&
-              indexUiState.refinementList.grantee_city.join('~'),
-            'grantee_state':
+              indexUiState.refinementList.first_level &&
+              indexUiState.refinementList.first_level.join('~'),
+            'second_level':
               indexUiState.refinementList &&
-              indexUiState.refinementList.grantee_state &&
-              indexUiState.refinementList.grantee_state.join('~'),
-            'grant_amount':
-              indexUiState.range &&
-              indexUiState.range.grant_amount &&
-              indexUiState.range.grant_amount.replace(':', '~'),
+              indexUiState.refinementList.second_level &&
+              indexUiState.refinementList.second_level.join('~'),
+            'status':
+              indexUiState.refinementList &&
+              indexUiState.refinementList.status &&
+              indexUiState.refinementList.status.join('~'),
+            'institute':
+              indexUiState.refinementList &&
+              indexUiState.refinementList.institute &&
+              indexUiState.refinementList.institute.join('~'),
+            'intro_en':
+              indexUiState.refinementList &&
+              indexUiState.refinementList.intro_en &&
+              indexUiState.refinementList.intro_en.join('~'),
+            'intro_cn':
+              indexUiState.refinementList &&
+              indexUiState.refinementList.intro_cn &&
+              indexUiState.refinementList.intro_cn.join('~'),
             'page': indexUiState.page,
           };
         },
@@ -147,13 +171,14 @@ ready(function() {
             [algoliaIndex]: {
               'query': routeState.query,
               'refinementList': {
-                'grantee_name': routeState.grantee_name && routeState.grantee_name.split('~'),
-                'organization_name': routeState.organization_name && routeState.organization_name.split('~'),
-                'grantee_city': routeState.grantee_city && routeState.grantee_city.split('~'),
-                'grantee_state': routeState.grantee_state && routeState.grantee_state.split('~'),
-              },
-              'range': {
-                'grant_amount': routeState.grant_amount && routeState.grant_amount.replace('~', ':'),
+                'menu_name': routeState.menu_name && routeState.menu_name.split('~'),
+                'data_source': routeState.data_source && routeState.data_source.split('~'),
+                'first_level': routeState.first_level && routeState.first_level.split('~'),
+                'second_level': routeState.second_level && routeState.second_level.split('~'),
+                'status': routeState.status && routeState.status.split('~'),
+                'institute': routeState.institute && routeState.institute.split('~'),
+                'intro_en': routeState.intro_en && routeState.intro_en.split('~'),
+                'intro_cn': routeState.intro_cn && routeState.intro_cn.split('~'),
               },
               'page': routeState.page,
             },
@@ -164,88 +189,22 @@ ready(function() {
   });
 
   // Define templates
-  const templateHitsEmpty = `<div id="no-results-ctas" class="hits-empty">
-  <div class="card">
-    <div class="card-content">
-      
-      <p>No results found for your query <strong>"<span>{{ query }}</span>"</strong></p>
-      
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-content">
-      <p>You conducted a Grants Search across keywords, locations, and organization names</p>
-    </div>
-  </div>
-  <div class="card z-depth-0 grey lighten-4">
-    <div class="card-content">
-      <div class="card-title">Not finding what you're looking for?</div>
-      <p>Remember, only private foundations that file taxes electronically are found on Grantmakers.io</p>
-    </div>
-  </div>
-  <div class="card z-depth-0 grey lighten-4">
-    <div class="card-content">
-      <div class="card-title">Get to know Grantmakers.io</div>
-      <p><a href="/about/tips-and-tricks/" data-ga="Get to know link">Tips and tricks</a> to get the most out of your searches</p>
-    </div>
-  </div>
-</div>
-`;
-  const templateStats = `
-  {{#hasNoResults}}No results{{/hasNoResults}}
-  {{#hasOneResult}}1 result{{/hasOneResult}}
-  {{#hasManyResults}}{{#helpers.formatNumber}}{{nbHits}}{{/helpers.formatNumber}} results{{/hasManyResults}}
-  <!--<span class="small text-muted-max">found in {{processingTimeMS}}ms</span>-->
-`;
+  const templateHitsEmpty = `{% include search/grants/algolia-template-hits-empty.html %}`;
+  const templateStats = `{% include search/algolia-template-stats.html %}`;
 
   // Define Grants hit template
-  const templateHits = `
-<div class="row row-grant-names">
-  <div class="col s12 m6">
-    <span class="text-bold">{{#helpers.highlight}}{ "attribute": "grantee_name" }{{/helpers.highlight}}</span> <!--<span class="text-muted small">({{ tax_year }})</span>-->
-  </div>
-  <div class="col s12 m5">
-    <a class="truncate text-light" href="https://www.grantmakers.io/profiles/{{ ein }}" title="View foundation profile">{{ organization_name }}</a>
-  </div>
-  <div class="col m1 hide-on-small-only">
-    <div class="actions-wrapper center-align">
-      <a href="#" class="dropdown-trigger dropdown-trigger-hits blue-grey-text" data-target="{{ _id }}"><i class="material-icons md-18">more_vert</i></a>
-      <ul id="{{ _id }}" class='dropdown-content'>
-        <li><a href="https://www.grantmakers.io/profiles/{{ ein }}"><i class="material-icons md-18 left">list_alt</i>View Foundation Profile</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="row"> 
-  <div class="col s12 m6">
-    <span class="small text-light">
-      {{#grantee_city}}
-        {{#helpers.highlight}}{ "attribute": "grantee_city" }{{/helpers.highlight}}, {{ grantee_state }}
-      {{/grantee_city}}
-    </span>
-  </div>
-  <div class="col s12 m5">
-    <span class="small text-light">
-      {{ grant_amount }}
-    </span>
-  </div>            
-</div>
-
-<div class="row">
-  <div class="col s10 grant-purpose">
-    <span class="text-muted-max small">{{#helpers.highlight}}{ "attribute": "grant_purpose" }{{/helpers.highlight}} ({{ tax_year }})</span>
-  </div>
-</div>
-`;
+  const templateHits = `{% include search/grants/algolia-template-hits.html %}`;
 
   // Define default search parameters
   const defaultSearchableAttributes = [
-    'organization_name',
-    'grantee_name',
-    'grantee_city',
-    'grantee_state',
-    'grant_purpose',
+    'menu_name',
+    'data_source',
+    'first_level',
+    'second_level',
+    'status',
+    'institute',
+    'intro_en',
+    'intro_cn',
   ];
 
   /* ---------------------------- */
@@ -284,7 +243,7 @@ ready(function() {
           // TODO Add logic to handle city + state
           // Currently assumes state will always remain in searchable attributes
           refine({
-            'restrictSearchableAttributes': [attribute, 'grantee_state'],
+            'restrictSearchableAttributes': [attribute, 'menu_state'],
           });
         });
       });
@@ -335,7 +294,7 @@ ready(function() {
     const triggerEl = document.getElementById('search-box-dropdown-trigger').querySelector('.search-box-dropdown-trigger-wrapper');
     if (widgetParams.searchParameters.restrictSearchableAttributes.length === 5) {
       triggerEl.classList.remove('adjusted');
-      inputEl.placeholder = 'Search by keywords, location, or grantee name';
+      inputEl.placeholder = 'Search by keywords, locations, or project names';
     } else {
       triggerEl.classList.add('adjusted');
       inputEl.placeholder = 'Search by custom fields selected';
@@ -490,10 +449,6 @@ ready(function() {
   /* Create all other refinements */
   /* ---------------------------- */
   facets.forEach((refinement) => {
-    // Amount handled by range widget
-    if (refinement.facet === 'grant_amount') {
-      return;
-    }
     const refinementListWithPanel = instantsearch.widgets.panel({
       'templates': {
         'header': refinement.label,
@@ -550,14 +505,7 @@ ready(function() {
           'disabledShowMore': 'hidden',
         },
         'templates': {
-          'showMoreText': `
-  {{#isShowingMore}}
-    [ - ] Showing top 20 results
-  {{/isShowingMore}}
-  {{^isShowingMore}}
-    [ + ] Show top 20 results
-  {{/isShowingMore}}
-`,
+          'showMoreText': `{% include search/algolia-refinementList-showMore.html %}`,
         },
       }),
     );
@@ -643,11 +591,14 @@ ready(function() {
       'searchParameters': {
         'hitsPerPage': 12,
         'restrictSearchableAttributes': [
-          'grantee_name',
-          'grant_purpose',
-          'grantee_city',
-          'grantee_state',
-          'organization_name',
+          'menu_name',
+          'data_source',
+          'first_level',
+          'second_level',
+          'status',
+          'institute',
+          'intro_en',
+          'intro_cn',
         ],
       },
     }),
@@ -667,12 +618,6 @@ ready(function() {
         'list': 'striped row',
         'item': ['col', 's12', 'li-grants-search'],
       },
-      transformItems(items) {
-        return items.map(item => ({
-          ...item,
-          'grant_amount': `$${item.grant_amount.toLocaleString()}`,
-        }));
-      },
     }),
 
     instantsearch.widgets.stats({
@@ -683,11 +628,6 @@ ready(function() {
       'cssClasses': {
         'text': 'text-muted',
       },
-    }),
-
-    customRangeInputWithPanel({
-      'container': document.querySelector('#ais-widget-range-input'),
-      'attribute': 'grant_amount',
     }),
 
     customCurrentRefinements({
