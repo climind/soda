@@ -608,6 +608,7 @@ ready(function() {
           return `<div class="row row-grant-names">
               <div class="col s12 m6">
                 <span class="text-bold">${data.menu_name}</span> 
+                <span class="text-muted-max small">${data.first_level}, ${data.second_level}</span>
               </div>
               <div class="col s12 m5">
                 <a class="truncate text-light" href="https://www.grantmakers.io/profiles/{{ menu_name }}" title="View foundation profile">${data.institute}</a>
@@ -634,12 +635,7 @@ ready(function() {
                 </span>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col s10 grant-purpose">
-                <span class="text-muted-max small">${data.first_level}, ${data.second_level}</span>
-              </div>
-            </div>`;
+          `;
         },
       },
       'cssClasses': {
