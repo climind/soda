@@ -630,7 +630,7 @@ ready(function() {
               </div>
               <div class="col s12 m5">
                 <span class="small text-light">
-                  ${data.intro_en}
+                  ${data.intro_cn}
                 </span>
               </div>            
             </div>
