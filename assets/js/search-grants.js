@@ -58,36 +58,24 @@ ready(function() {
   const algoliaIndex = 'new-index-1670622857';
   const facets = [
     {
-      'facet': 'menu_name',
-      'label': '数据名称(菜单栏)',
+      'facet': 'carbon_registry',
+      'label': 'Carbon Registry 碳签发标准',
     },
     {
-      'facet': 'data_source',
-      'label': '数据源链接',
+      'facet': 'nbs',
+      'label': 'NbS 基于自然的解决方案',
     },
     {
-      'facet': 'first_level',
-      'label': '一级分类',
+      'facet': 'physical_risk',
+      'label': 'Physical risk 物理风险',
     },
     {
-      'facet': 'second_level',
-      'label': '二级分类(数据名称或者其简写)',
+      'facet': 'carbon_emission',
+      'label': 'Carbon emission 碳排放',
     },
     {
-      'facet': 'status',
-      'label': 'Status',
-    },
-    {
-      'facet': 'institute',
-      'label': '机构',
-    },
-    {
-      'facet': 'intro_en',
-      'label': '一段话介绍-EN',
-    },
-    {
-      'facet': 'intro_cn',
-      'label': '一段话介绍 - 中文',
+      'facet': 'climate_policy',
+      'label': 'Climate Policy 气候政策',
     },
   ];
 
@@ -309,88 +297,6 @@ ready(function() {
   /* ----------------------- */
   /* Connector - Range Input */
   /* ----------------------- */
-  const renderRangeInput = (renderOptions, isFirstRender) => {
-    const { start, refine, widgetParams } = renderOptions; // Not using 'range' argument
-    const [min, max] = start;
-
-    if (isFirstRender) {
-      // Create panel
-      const wrapper = document.createElement('div');
-      wrapper.setAttribute('class', 'ais-RangeInput');
-      const form = document.createElement('form');
-      form.setAttribute('class', 'ais-RangeInput-form');
-
-      form.addEventListener('submit', event => {
-        event.preventDefault();
-
-        const rawMinInputValue = parseFloat(event.target.elements.min.value);
-        const rawMaxInputValue = parseFloat(event.target.elements.max.value);
-
-        refine([
-          Number.isFinite(rawMinInputValue) ? rawMinInputValue : undefined,
-          Number.isFinite(rawMaxInputValue) ? rawMaxInputValue : undefined,
-        ]);
-      });
-
-      widgetParams.container.appendChild(wrapper);
-      wrapper.appendChild(form);
-
-      return;
-    }
-
-    widgetParams.container.querySelector('form').addEventListener('input', event => {
-      event.preventDefault();
-
-      // Show helper text
-      // TODO This feels unnecessarily complicated
-      const helperEl = document.querySelector('.ais-Panel-footer');
-      const helperElMin = helperEl.querySelector('#range-footer-min');
-      const helperElMax = helperEl.querySelector('#range-footer-max');
-      const helperElSymbol = helperEl.querySelector('#range-footer-symbol');
-      let amount = parseFloat(event.target.value);
-      let amountMin;
-      let amountMax;
-      if (event.target.classList.contains('ais-RangeInput-input--min')) {
-        amountMin = numberHuman(amount);
-        amountMax = helperElMax.textContent || null;
-        helperElMin.textContent = `${amountMin ? '$' + amountMin : ''}`;
-      }
-      if (event.target.classList.contains('ais-RangeInput-input--max')) {
-        amountMax = numberHuman(amount);
-        amountMin = helperElMin.textContent || null;
-        helperElMax.textContent = `${amountMax ? '$' + amountMax : ''}`;
-      }
-      helperElSymbol.textContent = getRangeFooterSymbol(amountMin, amountMax);
-    });
-
-    widgetParams.container.querySelector('form').innerHTML = `
-      <label class="ais-RangeInput-label">
-        <input
-          class="ais-RangeInput-input ais-RangeInput-input--min"
-          type="number"
-          name="min"
-          placeholder="${rangeMin}"
-          value="${Number.isFinite(min) ? min : ''}"
-        />
-      </label>
-      <span>to</span>
-      <label class="ais-RangeInput-label">
-        <input
-          class="ais-RangeInput-input ais-RangeInput-input--max"
-          type="number"
-          name="max"
-          placeholder="${rangeMax}"
-          value="${Number.isFinite(max) ? max : ''}"
-        />
-      </label>
-      <button class="ais-RangeInput-submit btn-flat blue-grey white-text" type="submit">Go</button>
-    `;
-  };
-
-  // Create the custom range input widget
-  const customRangeInput = instantsearch.connectors.connectRange(
-    renderRangeInput,
-  );
 
   function getRangeFooterSymbol(min, max) {
     let symbol;
@@ -406,51 +312,33 @@ ready(function() {
     return symbol;
   }
 
-  // Create the panel widget wrapper
-  const customRangeInputWithPanel = instantsearch.widgets.panel({
-    'templates': {
-      'header': 'Grant Amount',
-      footer(options) {
-        // TODO DRY it up
-        if (options.state && options.state.numericRefinements && options.state.numericRefinements.grant_amount) {
-          const min = options.state.numericRefinements.grant_amount['>='];
-          const max = options.state.numericRefinements.grant_amount['<='];
-          let minFormatted;
-          let maxFormatted;
-          if (min) {
-            const minFloat = parseFloat(min.toString());
-            minFormatted = numberHuman(minFloat);
-          }
-          if (max) {
-            const maxFloat = parseFloat(max.toString());
-            maxFormatted = numberHuman(maxFloat);
-          }
-          return `<span id="range-footer-min">${minFormatted ? '$' + minFormatted : ''}</span><span id="range-footer-symbol">${getRangeFooterSymbol(minFormatted, maxFormatted)}</span><span id="range-footer-max">${maxFormatted ? '$' + maxFormatted : ''}</span>`;
-        } else {
-          return '<span id="range-footer-min"></span><span id="range-footer-symbol"></span><span id="range-footer-max"></span>';
-        }
-      },
-    },
-    hidden(options) {
-      return options.results.nbHits === 0;
-    },
-    'cssClasses': {
-      'root': ['card'],
-      'header': [
-        'card-header',
-      ],
-      'body': 'card-content',
-      'footer': 'small',
-    },
-  })(customRangeInput);
-
   /* ---------------------------- */
-  /* Create all other refinements */
+  /* Create all refinements panel */
   /* ---------------------------- */
   facets.forEach((refinement) => {
     const refinementListWithPanel = instantsearch.widgets.panel({
       'templates': {
-        'header': refinement.label,
+        header(options) {
+          if (options.results) {
+            return refinement.label;
+            // return `<span>${options.state}</span>`;
+          }
+        },
+        footer(options) {
+          if (options.results) {
+            let count = 0;
+            function count_all(item){
+              if (item.first_level == refinement.label){
+                count ++;
+              }
+            };
+            options.results.hits.forEach(count_all);
+            return `${count} results`;
+          }
+        },
+        collapseButtonText(options) {
+          return `<span>${options.results.hits[0].menu_name ? '+' : '-'}</span>`;
+        },
       },
       hidden(options) {
         return options.results.nbHits === 0;
@@ -622,7 +510,7 @@ ready(function() {
               <div class="col s12 m10">
                 <span class="text-bold">${data.menu_name}</span> 
               </div>
-              <div class="col m2 hide-on-small-only">
+              <div class="col s12 m2 hide-on-small-only">
                 <div class="actions-wrapper center-align">
                   <a href="#" class="dropdown-trigger dropdown-trigger-hits blue-grey-text" data-target="${data.objectID}"><i class="material-icons md-18">more_vert</i></a>
                   <ul id="${data.objectID}" class='dropdown-content'>
