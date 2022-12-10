@@ -100,11 +100,11 @@ ready(function() {
   const rangeMax = 1051049025;
 
   // Ensure initial toggle state set to grants search
-  toggle.value = 'grants';
+  toggle.value = 'database';
 
   // Toggle search type
   toggle.onchange = function() {
-    window.location.href = '/search/profiles/';
+    window.location.href = '/search';
   };
 
   // Toogle Advanced Search tools
@@ -189,11 +189,10 @@ ready(function() {
   });
 
   // Define templates
-  const templateHitsEmpty = `{% include search/grants/algolia-template-hits-empty.html %}`;
-  const templateStats = `{% include search/algolia-template-stats.html %}`;
+  const templateHitsEmpty = `{% include search/algolia-template-hits-empty.html %}`;
 
   // Define Grants hit template
-  const templateHits = `{% include search/grants/algolia-template-hits.html %}`;
+  const templateHits = `{% include search/algolia-template-hits.html %}`;
 
   // Define default search parameters
   const defaultSearchableAttributes = [
@@ -546,7 +545,6 @@ ready(function() {
 
   const renderCurrentRefinements = (renderOptions) => {
     const { items, refine, widgetParams } = renderOptions;
-
     widgetParams.container.innerHTML = `<ul class="list list-inline">${items.map(renderListItem).join('')}</ul>`;
 
     [...widgetParams.container.querySelectorAll('button')].forEach(element => {
@@ -567,6 +565,12 @@ ready(function() {
   const customCurrentRefinements = instantsearch.connectors.connectCurrentRefinements(
     renderCurrentRefinements,
   );
+
+  /* ---------------------------- */
+  /* Post-processing hits
+  /* ---------------------------- */
+  function text_hit(data) {
+  }
 
   /* ---------------------------- */
   /* Instantiate all Widgets
@@ -595,10 +599,6 @@ ready(function() {
           'data_source',
           'first_level',
           'second_level',
-          'status',
-          'institute',
-          'intro_en',
-          'intro_cn',
         ],
       },
     }),
@@ -609,10 +609,10 @@ ready(function() {
 
     instantsearch.widgets.hits({
       'container': '#ais-widget-hits',
-      'templates': {
-        'item': templateHits,
-        'empty': templateHitsEmpty,
-      },
+      // 'templates': {
+      //   'item': templateHits,
+      //   'empty': templateHitsEmpty,
+      // },
       'cssClasses': {
         'root': '',
         'list': 'striped row',
@@ -622,9 +622,6 @@ ready(function() {
 
     instantsearch.widgets.stats({
       'container': '#ais-widget-stats',
-      'templates': {
-        'text': templateStats,
-      },
       'cssClasses': {
         'text': 'text-muted',
       },

@@ -71,8 +71,8 @@ permalink: /search
               <div class="col l2 hide-on-med-and-down">
                 <div id="search-toggle" class="input-field valign-wrapper">
                   <select class="browser-default grants-search white-text">
-                    <optgroup class="disabled" label="Search all grants">
-                      <option value="grants" selected>Database Search</option>
+                    <optgroup class="disabled" label="Search all datasets">
+                      <option value="database" selected>Database Search</option>
                     </optgroup>
                   </select>
                 </div>
@@ -162,7 +162,6 @@ permalink: /search
             <div class="section-refinements section-refinements-grants-search hide-on-med-and-down grants-search">
               <div> <!-- Add row class to remove added white space / padding -->
                 <div class="col s12">
-                  <div id="ais-widget-range-input"></div>
                   <div id="ais-widget-refinement-list--menu_name"></div>
                   <div id="ais-widget-refinement-list--data_source"></div>
                   <div id="ais-widget-refinement-list--first_level"></div>
@@ -266,5 +265,6 @@ permalink: /search
     {% endif %}
     <!-- Drift -->
     <!-- End Drift -->
+    {% include materialize/footer.html %}
   </body>
 </html>

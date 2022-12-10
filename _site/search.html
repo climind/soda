@@ -32,13 +32,13 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.1/themes/reset-min.css" integrity="sha256-JQ2nnTmybhOWSjfV3sa8mG0ZVhTCcORER4cyXc5HL10=" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/css/unified-search.css?v=20221209">
+    <link rel="stylesheet" href="/assets/css/unified-search.css?v=20221210">
 
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.13.0/algoliasearch-lite.umd.min.js" integrity="sha512-ji9S/0drol2op0X3D/X3s0NzPYTbJ+uuTqKM4pppyGKCvJ9+aKsw6Vgyk3ByZ8ZXGh0rdr+Eokv+m1xOrygFVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.production.min.js" integrity="sha512-GZAF54GRoa3oTxOSw6uLtVBHcnMBK1K0HqK7RymF9yjb+C65B8mAOs46vvk4YIKuED5FkAUrSOc24f8mmpLqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/assets/js/search-grants.js?v=20221209"></script>
+    <script src="/assets/js/search-grants.js?v=20221210"></script>
     
   </head>
   <body class="unified-search">
@@ -116,8 +116,8 @@
               <div class="col l2 hide-on-med-and-down">
                 <div id="search-toggle" class="input-field valign-wrapper">
                   <select class="browser-default grants-search white-text">
-                    <optgroup class="disabled" label="Search all grants">
-                      <option value="grants" selected>Database Search</option>
+                    <optgroup class="disabled" label="Search all datasets">
+                      <option value="database" selected>Database Search</option>
                     </optgroup>
                   </select>
                 </div>
@@ -235,7 +235,6 @@
             <div class="section-refinements section-refinements-grants-search hide-on-med-and-down grants-search">
               <div> <!-- Add row class to remove added white space / padding -->
                 <div class="col s12">
-                  <div id="ais-widget-range-input"></div>
                   <div id="ais-widget-refinement-list--menu_name"></div>
                   <div id="ais-widget-refinement-list--data_source"></div>
                   <div id="ais-widget-refinement-list--first_level"></div>
@@ -343,5 +342,51 @@
     
     <!-- Drift -->
     <!-- End Drift -->
+    <footer class="footer">
+	<div class="container-custom">
+		<div class="row row-footer-primary-nav">
+			<div class="col s4 m3 l3">
+				<h6>Our Team</h6>
+				<p><a href="/about">Team Members</a></p>
+			</div>
+			<div class="col s4 m3 l3">
+				<h6>Join Us</h6>
+				<p><a href="/about">Apply Now</a></p>
+			</div>
+			<div class="col s4 m3 l3">
+				<h6>Search</h6>
+				<p><a href="/search" title="search">Climate Search</a></p>
+			</div>
+			<div class="col s4 m3 l3 hide-on-small-only">
+				<h6><a class="valign-wrapper text-default" href="/"><img src="/assets/img/brand-logo.png" alt="climind.co logo" class="brand-logo"></a></h6>
+			</div>
+		</div>
+		<div class="divider divider-dark"></div>
+		<div class="row row-tight row-footer-secondary-nav">
+			<div class="col s12 m12 l4">
+				<div class="center-align">
+					<div class="copyright center-align">
+						Powered by <a class="text-default" href="https://www.climind.co"> climind.co </a>
+					</div>
+				</div>
+			</div>
+			<div class="col s12 m12 l4">
+			</div>
+		</div>
+	</div>
+	<div class="footer-terms small">
+		<div class="container-custom">
+			<div class="row">
+				<div class="col m9">
+					<ul>
+						<li class="small">
+							All content is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
   </body>
 </html>

@@ -1,0 +1,39 @@
+{% raw %}
+<div class="row row-grant-names">
+  <div class="col s12 m6">
+    <span class="text-bold">{{ data.menu_name }}</span> 
+  </div>
+  <div class="col s12 m5">
+    <a class="truncate text-light" href="https://www.grantmakers.io/profiles/{{ menu_name }}" title="View foundation profile">{{ institute }}</a>
+  </div>
+  <div class="col m1 hide-on-small-only">
+    <div class="actions-wrapper center-align">
+      <a href="#" class="dropdown-trigger dropdown-trigger-hits blue-grey-text" data-target="{{ menu_name }}"><i class="material-icons md-18">more_vert</i></a>
+      <ul id="{{ objectID }}" class='dropdown-content'>
+        <li><a href="https://www.grantmakers.io/profiles/{{ menu_name }}"><i class="material-icons md-18 left">list_alt</i>View Foundation Profile</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row"> 
+  <div class="col s12 m6">
+    <span class="small text-light">
+      {{#grantee_city}}
+        {{#helpers.highlight}}{ "attribute": "menu_name" }{{/helpers.highlight}}, {{ institute }}
+      {{/grantee_city}}
+    </span>
+  </div>
+  <div class="col s12 m5">
+    <span class="small text-light">
+      {{ grant_amount }}
+    </span>
+  </div>            
+</div>
+
+<div class="row">
+  <div class="col s10 grant-purpose">
+    <span class="text-muted-max small">{{#helpers.highlight}}{ "attribute": "first_level" }{{/helpers.highlight}} ({{ menu_name }})</span>
+  </div>
+</div>
+{% endraw %}
