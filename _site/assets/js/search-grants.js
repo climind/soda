@@ -614,9 +614,9 @@ ready(function() {
               </div>
               <div class="col m1 hide-on-small-only">
                 <div class="actions-wrapper center-align">
-                  <a href="#" class="dropdown-trigger dropdown-trigger-hits blue-grey-text" data-target="${data.menu_name}"><i class="material-icons md-18">more_vert</i></a>
+                  <a href="#" class="dropdown-trigger dropdown-trigger-hits blue-grey-text" data-target="${data.objectID}"><i class="material-icons md-18">more_vert</i></a>
                   <ul id="${data.objectID}" class='dropdown-content'>
-                    <li><a href="https://www.grantmakers.io/profiles/{{ menu_name }}"><i class="material-icons md-18 left">list_alt</i>View Foundation Profile</a></li>
+                    <li><a href="${data.data_source}"><i class="material-icons md-18 left">list_alt</i>查看数据来源</a></li>
                   </ul>
                 </div>
               </div>
