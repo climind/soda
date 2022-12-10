@@ -605,18 +605,29 @@ ready(function() {
       'container': '#ais-widget-hits',
       'templates': {
         item(data){
-          return `<div class="row row-grant-names">
-              <div class="col s12 m6">
+          // return `
+          //   <div class="card col s12 m6">
+          //     <div class="card-body">
+          //       <h5 class="card-title">${data.institute}</h5>
+          //       <h6 class="card-subtitle mb-2 text-muted">${data.menu_name}</h6>
+          //       <p class="card-text">${data.intro_cn}</p>
+          //       <p class="card-text">${data.intro_en}</p>
+          //       <a href="#" class="card-link">Card link</a>
+          //       <a href="#" class="card-link">Another link</a>
+          //     </div>
+          //   </div>
+          // `;
+          return `
+          <div class="row row-grant-names">
+              <div class="col s12 m10">
                 <span class="text-bold">${data.menu_name}</span> 
-                <span class="text-muted-max small">${data.first_level}, ${data.second_level}</span>
               </div>
-              <div class="col s12 m5">
-                <a class="truncate text-light" href="https://www.grantmakers.io/profiles/{{ menu_name }}" title="View foundation profile">${data.institute}</a>
-              </div>
-              <div class="col m1 hide-on-small-only">
+              <div class="col m2 hide-on-small-only">
                 <div class="actions-wrapper center-align">
                   <a href="#" class="dropdown-trigger dropdown-trigger-hits blue-grey-text" data-target="${data.objectID}"><i class="material-icons md-18">more_vert</i></a>
                   <ul id="${data.objectID}" class='dropdown-content'>
+                    <li><a href="#"><i class="material-icons md-18 left">list_alt</i>${data.first_level}</a></li>
+                    <li><a href="#"><i class="material-icons md-18 left">list_alt</i>${data.second_level}</a></li>
                     <li><a href="${data.data_source}"><i class="material-icons md-18 left">list_alt</i>查看数据来源</a></li>
                   </ul>
                 </div>
@@ -624,16 +635,24 @@ ready(function() {
             </div>
 
             <div class="row"> 
-              <div class="col s12 m6">
+              <div class="col s12 m10">
+                <a class="text-muted-max small" href="https://www.grantmakers.io/profiles/{{ menu_name }}" title="View foundation profile">${data.institute}</a>
+              </div>
+            </div>
+
+            <div class="row"> 
+              <div class="col s12 m10">
                 <span class="small text-light">
                   ${data.intro_cn}
                 </span>
               </div>            
-              <div class="col s12 m6">
+            </div>
+            <div class="row"> 
+              <div class="col s12 m10">
                 <span class="small text-light">
                   ${data.intro_en}
                 </span>
-              </div>
+              </div>            
             </div>
           `;
         },
