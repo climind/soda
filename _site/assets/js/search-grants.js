@@ -182,12 +182,6 @@ ready(function() {
     },
   });
 
-  // Define templates
-  const templateHitsEmpty = `{% include search/algolia-template-hits-empty.html %}`;
-
-  // Define Grants hit template
-  const templateHits = `{% include search/algolia-template-hits.html %}`;
-
   // Define default search parameters
   const defaultSearchableAttributes = [
     'menu_name',
@@ -480,8 +474,7 @@ ready(function() {
                 <div class="actions-wrapper center-align">
                   <a href="#" class="dropdown-trigger dropdown-trigger-hits blue-grey-text" data-target="${data.objectID}"><i class="material-icons md-18">more_vert</i></a>
                   <ul id="${data.objectID}" class='dropdown-content'>
-                    <li><a href="#"><i class="material-icons md-18 left">list_alt</i>${data.first_level}</a></li>
-                    <li><a href="#"><i class="material-icons md-18 left">list_alt</i>${data.second_level}</a></li>
+                    <li><a href="${data.data_source}"><i class="material-icons md-18 left">list_alt</i>View source</a></li>
                   </ul>
                 </div>
               </div>
@@ -490,6 +483,7 @@ ready(function() {
             <div class="row"> 
               <div class="col s12 m10">
                 <a class="text-muted-max small" href="https://www.grantmakers.io/profiles/{{ menu_name }}" title="View foundation profile">${data.institute}</a>
+                <span class="text-muted small"><em>${data.first_level}:${data.second_level}</em></span>
               </div>
             </div>
             <div class="row"> 

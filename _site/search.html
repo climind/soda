@@ -29,7 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.13.0/algoliasearch-lite.umd.min.js" integrity="sha512-ji9S/0drol2op0X3D/X3s0NzPYTbJ+uuTqKM4pppyGKCvJ9+aKsw6Vgyk3ByZ8ZXGh0rdr+Eokv+m1xOrygFVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.production.min.js" integrity="sha512-GZAF54GRoa3oTxOSw6uLtVBHcnMBK1K0HqK7RymF9yjb+C65B8mAOs46vvk4YIKuED5FkAUrSOc24f8mmpLqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/assets/js/search-grants.js?v=20221211"></script>
+    <script src="/assets/js/search-grants.js"></script>
     
   </head>
   <body class="unified-search">
@@ -39,10 +39,10 @@
   <div>
     <nav class="navbar-unified-search transparent" id="primary-navbar">
       <div class="nav-wrapper">
-        <div class="container-custom">
+        <div class="container">
           <div class="row">
-            <div class="col s8 m4 l4">
-              <a href="" data-ga="Homepage" class="brand-logo">
+            <div class="col m4">
+              <a href="https://climind.co" data-ga="Homepage">
                 <div class="logo-container">
                   <div class="logo">
                     <img src="/assets/img/brand-logo.png" alt="Climind Logo">
@@ -50,11 +50,11 @@
                 </div>
               </a>
             </div>
-            <div class="col m4 l8">
+            <div class="col m8">
               <ul class="collection right hide-on-med-and-down">
                 <li class="collection-item avatar">
                   <a href="/search" title="Grants Search">
-                    <i class="material-icons circle blue-grey">search</i> <span class="title">Search all climate databases</span>
+                    <i class="material-icons circle blue-grey">search</i> <span class="title black-text">Search all climate databases</span>
                     <p class="blue-grey-text text-lighten-1">Database Search</p>
                   </a>
                 </li>
@@ -62,7 +62,7 @@
                   <a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger">
                     <i class="material-icons circle grey darken-2">keyboard_arrow_down</i>
                     <div class="valign-wrapper">
-                      <p class="">More</p>
+                      <p class="black-text">More</p>
                     </div>
                   </a>
                 </li>
@@ -315,5 +315,48 @@
     
     <!-- Drift -->
     <!-- End Drift -->
+  <footer class="footer">
+	<div class="container-custom">
+		<div class="row row-footer-primary-nav">
+			<div class="col s4 m3 l3">
+				<h6>Our Team</h6>
+				<p><a href="/about">Team Members</a></p>
+			</div>
+			<div class="col s4 m3 l3">
+				<h6>Join Us</h6>
+				<p><a href="/about">Apply Now</a></p>
+			</div>
+			<div class="col s4 m3 l3">
+				<h6>Search</h6>
+				<p><a href="/search" title="search">Climate Search</a></p>
+			</div>
+		</div>
+		<div class="divider divider-dark"></div>
+		<div class="row row-tight row-footer-secondary-nav">
+			<div class="col s12 m12 l4">
+				<div class="center-align">
+					<div class="copyright center-align">
+						Powered by <a class="text-default" href="https://www.climind.co"> climind.co </a>
+					</div>
+				</div>
+			</div>
+			<div class="col s12 m12 l4">
+			</div>
+		</div>
+	</div>
+	<div class="footer-terms small">
+		<div class="container-custom">
+			<div class="row">
+				<div class="col m9">
+					<ul>
+						<li class="small">
+							All content is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
   </body>
 </html>

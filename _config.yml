@@ -17,9 +17,6 @@ plugins:
 # Google Analytics
 google_analytics: G-RV3RW7CWQB
 
-# Algolia Link
-algolia_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
-
 number_of_searchable_records: 57
 # searchable grants figure pulled directly from Algolia
 
