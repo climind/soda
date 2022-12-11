@@ -17,28 +17,19 @@
     <link rel="preconnect" href="https://qa1231c5w9-dsn.algolia.net" crossorigin>
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 
-    <!-- Open Graph -->
-    <meta property="og:image" content="http://localhost:4000/assets/img/og-image.png" />
-    <meta property="og:title" content="climind.co" />
-    <meta property="og:site_name" content="climind.co" />
-    <meta property="og:url" content="http://localhost:4000/search" />
-    <meta property="og:description" content="Quickly find climate datasets from 109,000 sources in the world." />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_US" />
-
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700">
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.1/themes/reset-min.css" integrity="sha256-JQ2nnTmybhOWSjfV3sa8mG0ZVhTCcORER4cyXc5HL10=" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/css/unified-search.css?v=20221210">
+    <link rel="stylesheet" href="/assets/css/unified-search.css?v=20221211">
 
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.13.0/algoliasearch-lite.umd.min.js" integrity="sha512-ji9S/0drol2op0X3D/X3s0NzPYTbJ+uuTqKM4pppyGKCvJ9+aKsw6Vgyk3ByZ8ZXGh0rdr+Eokv+m1xOrygFVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.production.min.js" integrity="sha512-GZAF54GRoa3oTxOSw6uLtVBHcnMBK1K0HqK7RymF9yjb+C65B8mAOs46vvk4YIKuED5FkAUrSOc24f8mmpLqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/assets/js/search-grants.js?v=20221210"></script>
+    <script src="/assets/js/search-grants.js?v=20221211"></script>
     
   </head>
   <body class="unified-search">
@@ -104,7 +95,7 @@
           <div class="intro-text center-align white-text">
             <h1 class="text-bold">Climate Database Search</h1>
             <h5>Discover insights into the climate change</h5>
-            <p>Search through 5.4 million climate-related datasets contained in the public databases</p>
+            <p>Search through 57 million climate-related datasets contained in the public databases</p>
           </div>
         </div>
         <canvas></canvas>
@@ -137,30 +128,44 @@
                       <li class="valign-wrapper">
                         <label>
                         <input id="menu_name" type="checkbox" class="filled-in" checked="checked" />
-                        <span>数据名称</span>
+                        <span>Project Name</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="organization_name">only</span>
+                        <span class="checkbox-only" data-attribute="menu_name">only</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
                         <input id="data_source" type="checkbox" class="filled-in" checked="checked" />
-                        <span>数据源链接</span>
+                        <span>Data Source</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="grantee_name">only</span>
+                        <span class="checkbox-only" data-attribute="data_source">only</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
                         <input id="first_level" type="checkbox" class="filled-in" checked="checked" />
-                        <span>一级分类</span>
+                        <span>First Level</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="grantee_city">only</span>
+                        <span class="checkbox-only" data-attribute="first_level">only</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
                         <input id="second_level" type="checkbox" class="filled-in" checked="checked" />
-                        <span>二级分类</span>
+                        <span>Second Level</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="grant_purpose">only</span>
+                        <span class="checkbox-only" data-attribute="second_level">only</span>
+                      </li>
+                      <li class="valign-wrapper">
+                        <label>
+                        <input id="intro_en" type="checkbox" class="filled-in" checked="checked" />
+                        <span>Introduction</span>
+                        </label>
+                        <span class="checkbox-only" data-attribute="intro_en">only</span>
+                      </li>
+                      <li class="valign-wrapper">
+                        <label>
+                        <input id="intro_cn" type="checkbox" class="filled-in" checked="checked" />
+                        <span>中文简介</span>
+                        </label>
+                        <span class="checkbox-only" data-attribute="intro_cn">only</span>
                       </li>
                       <li class="valign-wrapper small text-light left-align">
                         <span id="select-all" style="margin:inherit">SELECT ALL</span>
@@ -212,13 +217,6 @@
             <!-- Filters / Refinements header -->
             <div class="text-muted hide-on-med-and-down">
               Filters 
-              <div class="switch switch-refinements right">
-                <label class="search-toggle-advanced">
-                  Show advanced tools
-                  <input type="checkbox">
-                  <span class="lever"></span>
-                </label>
-              </div>
             </div>
             <div class="hidden">
               <ul class="actions">
@@ -235,11 +233,8 @@
             <div class="section-refinements section-refinements-grants-search hide-on-med-and-down grants-search">
               <div> <!-- Add row class to remove added white space / padding -->
                 <div class="col s12">
-                  <div id="ais-widget-refinement-list--carbon_registry"></div>
-                  <div id="ais-widget-refinement-list--nbs"></div>
-                  <div id="ais-widget-refinement-list--physical_risk"></div>
-                  <div id="ais-widget-refinement-list--carbon_emission"></div>
-                  <div id="ais-widget-refinement-list--climate_policy"></div>
+                  <div id="ais-widget-refinement-list--first_level"></div>
+                  <div id="ais-widget-refinement-list--second_level"></div>
                 </div>
                 <div class="col s12">
                   <div class="section">

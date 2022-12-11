@@ -448,9 +448,9 @@ nav .logo-container {
 }
 .brand-logo {
   display: inline-block;
-  height: 100%;
+  height: 50%;
 }
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 100px) {
   nav .brand-logo {
     left: inherit;
     transform: inherit;
@@ -496,7 +496,7 @@ ul#navbar-more.dropdown-content {
     color: #ffffff;
   }
 }
-$parallax-height: 75vh;
+$parallax-height: 40vh;
 .parallax-container {
   height: $parallax-height;
   // top: -$searchBarHeight;

@@ -2800,9 +2800,9 @@ nav .logo-container { padding: 5px 0; display: inline-block; }
 
 .logo-container .brand { font-size: 16px; color: #FFFFFF; line-height: 32px; float: left; margin-left: 10px; margin-top: 10px; width: 70px; height: 40px; text-align: left; }
 
-.brand-logo { display: inline-block; height: 100%; }
+.brand-logo { display: inline-block; height: 50%; }
 
-@media only screen and (max-width: 992px) { nav .brand-logo { left: inherit; transform: inherit; } }
+@media only screen and (max-width: 100px) { nav .brand-logo { left: inherit; transform: inherit; } }
 nav.nav-center ul.ul-center { text-align: center; }
 
 nav.nav-center ul.ul-center li { display: inline-block; float: none; }
@@ -2820,7 +2820,7 @@ ul#navbar-more.dropdown-content li.disabled a.title { text-transform: uppercase;
 /* Hero */
 .intro h1, .intro h2, .intro h3, .intro h4, .intro h5, .intro h6 { color: #ffffff; }
 
-.parallax-container { height: 75vh; }
+.parallax-container { height: 40vh; }
 
 .overlay { background: rgba(44, 45, 51, 0.8); background: linear-gradient(rgba(44, 45, 51, 0.8), rgba(44, 45, 51, 0.8)); background: -moz-linear-gradient(rgba(44, 45, 51, 0.8), rgba(44, 45, 51, 0.8)); background: -webkit-linear-gradient(rgba(44, 45, 51, 0.8), rgba(44, 45, 51, 0.8)); }
 
@@ -2828,7 +2828,7 @@ ul#navbar-more.dropdown-content li.disabled a.title { text-transform: uppercase;
 
 .parallax img { object-fit: cover; }
 
-.intro { height: 75vh; }
+.intro { height: 40vh; }
 .intro .intro-text { margin: auto; z-index: 1; }
 .intro .intro-text h1 { margin-bottom: 10px; }
 .intro .intro-text h5 { font-weight: 300; }

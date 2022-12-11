@@ -55,37 +55,43 @@ ready(function() {
   // ALGOLIA
   // ==============
   const searchClient = algoliasearch('8G5L7EK4L9', 'a411a62a81314cb6985e0a071b893f54');
-  const algoliaIndex = 'new-index-1670622857';
+  const algoliaIndex = '58_data_entry_cn_en';
+  // const facets = [
+  //   {
+  //     'facet': 'carbon_registry',
+  //     'label': 'Carbon Registry',
+  //   },
+  //   {
+  //     'facet': 'nature_based_solution',
+  //     'label': 'Nature-based Solution',
+  //   },
+  //   {
+  //     'facet': 'physical_risk',
+  //     'label': 'Physical Risk',
+  //   },
+  //   {
+  //     'facet': 'carbon_emission',
+  //     'label': 'Carbon Emission',
+  //   },
+  //   {
+  //     'facet': 'climate_policy',
+  //     'label': 'Climate Policy',
+  //   },
+  // ];
   const facets = [
-    {
-      'facet': 'carbon_registry',
-      'label': 'Carbon Registry 碳签发标准',
-    },
-    {
-      'facet': 'nbs',
-      'label': 'NbS 基于自然的解决方案',
-    },
-    {
-      'facet': 'physical_risk',
-      'label': 'Physical risk 物理风险',
-    },
-    {
-      'facet': 'carbon_emission',
-      'label': 'Carbon emission 碳排放',
-    },
-    {
-      'facet': 'climate_policy',
-      'label': 'Climate Policy 气候政策',
-    },
-  ];
+     {
+       'facet': 'first_level',
+       'label': 'First Level',
+     },
+     {
+       'facet': 'second_level',
+       'label': 'Second Level',
+     },
+  ]
 
   // Define toggle helpers
   const toggleParent = document.getElementById('search-toggle');
   const toggle = toggleParent.querySelector('select');
-
-  // Define RangeInput min/max - for placeholders only
-  const rangeMin = 0;
-  const rangeMax = 1051049025;
 
   // Ensure initial toggle state set to grants search
   toggle.value = 'database';
@@ -230,7 +236,7 @@ ready(function() {
           // TODO Add logic to handle city + state
           // Currently assumes state will always remain in searchable attributes
           refine({
-            'restrictSearchableAttributes': [attribute, 'menu_state'],
+            'restrictSearchableAttributes': [attribute, 'menu_name'],
           });
         });
       });
@@ -294,51 +300,13 @@ ready(function() {
     () => {},
   );
 
-  /* ----------------------- */
-  /* Connector - Range Input */
-  /* ----------------------- */
-
-  function getRangeFooterSymbol(min, max) {
-    let symbol;
-    if (min && max) {
-      symbol = ' - ';
-    } else if (min && !max) {
-      symbol = '+';
-    } else if (!min && max) {
-      symbol = '<';
-    } else if (!min && !max) {
-      symbol = '';
-    }
-    return symbol;
-  }
-
   /* ---------------------------- */
   /* Create all refinements panel */
   /* ---------------------------- */
   facets.forEach((refinement) => {
     const refinementListWithPanel = instantsearch.widgets.panel({
       'templates': {
-        header(options) {
-          if (options.results) {
-            return refinement.label;
-            // return `<span>${options.state}</span>`;
-          }
-        },
-        footer(options) {
-          if (options.results) {
-            let count = 0;
-            function count_all(item){
-              if (item.first_level == refinement.label){
-                count ++;
-              }
-            };
-            options.results.hits.forEach(count_all);
-            return `${count} results`;
-          }
-        },
-        collapseButtonText(options) {
-          return `<span>${options.results.hits[0].menu_name ? '+' : '-'}</span>`;
-        },
+        'header': refinement.label,
       },
       hidden(options) {
         return options.results.nbHits === 0;
@@ -390,9 +358,6 @@ ready(function() {
           'count': ['right', 'small'],
           'showMore': 'btn-flat blue-grey-text small',
           'disabledShowMore': 'hidden',
-        },
-        'templates': {
-          'showMoreText': `{% include search/algolia-refinementList-showMore.html %}`,
         },
       }),
     );
@@ -481,6 +446,7 @@ ready(function() {
           'data_source',
           'first_level',
           'second_level',
+          'intro_en',
         ],
       },
     }),
@@ -508,7 +474,7 @@ ready(function() {
           return `
           <div class="row row-grant-names">
               <div class="col s12 m10">
-                <span class="text-bold">${data.menu_name}</span> 
+                <span class="text-bold"><a href="${data.data_source}">${data.menu_name}</a></span> 
               </div>
               <div class="col s12 m2 hide-on-small-only">
                 <div class="actions-wrapper center-align">
@@ -516,7 +482,6 @@ ready(function() {
                   <ul id="${data.objectID}" class='dropdown-content'>
                     <li><a href="#"><i class="material-icons md-18 left">list_alt</i>${data.first_level}</a></li>
                     <li><a href="#"><i class="material-icons md-18 left">list_alt</i>${data.second_level}</a></li>
-                    <li><a href="${data.data_source}"><i class="material-icons md-18 left">list_alt</i>查看数据来源</a></li>
                   </ul>
                 </div>
               </div>
@@ -526,14 +491,6 @@ ready(function() {
               <div class="col s12 m10">
                 <a class="text-muted-max small" href="https://www.grantmakers.io/profiles/{{ menu_name }}" title="View foundation profile">${data.institute}</a>
               </div>
-            </div>
-
-            <div class="row"> 
-              <div class="col s12 m10">
-                <span class="small text-light">
-                  ${data.intro_cn}
-                </span>
-              </div>            
             </div>
             <div class="row"> 
               <div class="col s12 m10">
@@ -594,8 +551,6 @@ ready(function() {
     initSelect();
     // Show range input if initial URL contains an amount refinement
     setInitialAdvancedSearchToggleState();
-    // Create advanced search toggle listener
-    toggleAdvancedElem.addEventListener('change', toggleAdvancedListener, false);
   });
 
   search.on('render', function() {

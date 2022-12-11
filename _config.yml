@@ -20,10 +20,7 @@ google_analytics: G-RV3RW7CWQB
 # Algolia Link
 algolia_link: http://goto.algolia.com/l/139121/2017-10-24/26gc84
 
-number_of_filings: 541250
-number_of_foundations: 109121
-number_of_grants: 6886416
-number_of_searchable_grants: 5473466
+number_of_searchable_records: 57
 # searchable grants figure pulled directly from Algolia
 
 # Build settings
