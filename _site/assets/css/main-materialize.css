@@ -2800,7 +2800,7 @@ nav.navbar-unified-search .collection .collection-item p { line-height: 1rem; }
 
 nav .logo-container { padding: 5px 0; display: inline-block; }
 
-.logo-container .logo { border: 0; width: 50px; height: 50px; float: left; }
+.logo-container .logo { border: 0; height: 50px; float: left; }
 .logo-container .logo img { width: 100%; height: 100%; }
 
 .logo-container .brand { font-size: 16px; color: #FFFFFF; line-height: 32px; float: left; margin-left: 10px; margin-top: 10px; width: 70px; height: 40px; text-align: left; }
@@ -2898,7 +2898,7 @@ body.simple-page .header .container h1.title { font-size: 3.8rem; }
 .navbar-profile i.left-tighten { margin-right: 3px; }
 @media only screen and (max-width: 600px) { .navbar-profile.affix-top { background-color: rgba(0, 0, 0, 0.4); box-shadow: none !important; } }
 @media only screen and (min-width: 601px) { .navbar-profile.affix-top { background-color: transparent !important; border-color: transparent !important; box-shadow: none !important; } }
-.navbar-profile .logo-container .logo { border: 0; width: 50px; height: 50px; float: left; }
+.navbar-profile .logo-container .logo { border: 0; height: 50px; float: left; }
 .navbar-profile .logo-container .logo img { width: 100%; height: 100%; }
 .navbar-profile .logo-container .brand { font-size: 16px; color: #FFFFFF; line-height: 32px; float: left; margin-left: 10px; margin-top: 10px; width: 70px; height: 40px; text-align: left; }
 .navbar-profile .form-group { margin: 0; padding: 0; }
