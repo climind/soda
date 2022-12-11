@@ -586,7 +586,8 @@ nav .logo-container {
 }
 .logo-container .logo {
   border: 0;
-  height: 50px;
+  height: 100px;
+  width: 160px;
   float: left;
   img {
     width: 100%;
@@ -1048,10 +1049,6 @@ $parallax-height: 75vh;
 	left: 0;
 	top: 0;
 	content: "";
-	background: rgba(44,45,51,0.9);
-	background: linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
-	background: -moz-linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
-	background: -webkit-linear-gradient(rgba(44,45,51,0.9), rgba(44,45,51,0.9));
 }
 .simple-page .header-filter:after {
 	height: 380px;
