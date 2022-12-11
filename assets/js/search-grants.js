@@ -440,7 +440,7 @@ ready(function() {
     customConfigure({
       'container': document.querySelector('#search-box-dropdown'),
       'searchParameters': {
-        'hitsPerPage': 12,
+        'hitsPerPage': 8,
         'restrictSearchableAttributes': [
           'menu_name',
           'data_source',
