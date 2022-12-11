@@ -2669,7 +2669,7 @@ img.icon-irs-alt { height: 22px; }
 
 img.icon-logo { height: 30px; width: 30px; }
 
-img.brand-logo { height: 30px; }
+img.brand-logo { height: 200px; }
 
 .card-action-community-alert { display: none; }
 .card-action-community-alert a { text-transform: none !important; }
@@ -2805,7 +2805,7 @@ nav .logo-container { padding: 5px 0; display: inline-block; }
 
 .logo-container .brand { font-size: 16px; color: #FFFFFF; line-height: 32px; float: left; margin-left: 10px; margin-top: 10px; width: 70px; height: 40px; text-align: left; }
 
-.brand-logo { display: inline-block; height: 50%; }
+.brand-logo { display: inline-block; height: 100%; }
 
 @media only screen and (max-width: 992px) { nav .brand-logo { left: inherit; transform: inherit; } }
 nav.nav-center ul.ul-center { text-align: center; }
