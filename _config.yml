@@ -3,12 +3,12 @@
 
 # Site settings
 # Meta tags
-title: climind.co
+title: climind.cn
 description: Quickly find climate datasets from 109,000 sources in the world. 
 
 # Jekyll settings
 baseurl: # Leave this blank unless your site is located on a subpath, e.g. /blog
-url: https://www.climind.co/soda
+url: https://www.climind.cn
 sass:
   sass_dir: assets/css/_sass
 plugins:
