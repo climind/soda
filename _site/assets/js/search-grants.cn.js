@@ -470,7 +470,7 @@ ready(function() {
 
             <div class="row"> 
               <div class="col s12 m10">
-                <a class="text-muted-max small" href="https://www.grantmakers.io/profiles/{{ menu_name }}" title="View foundation profile">${data.institute}</a>
+                <a class="text-muted-max small" href="${data.data_source}" title="institute">${data.institute}</a>
                 <span class="text-muted small"><em>${data.first_level_cn}:${data.second_level_cn}</em></span>
               </div>
             </div>
