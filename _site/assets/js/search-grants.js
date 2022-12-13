@@ -149,10 +149,6 @@ ready(function() {
               indexUiState.refinementList &&
               indexUiState.refinementList.intro_en &&
               indexUiState.refinementList.intro_en.join('~'),
-            'intro_cn':
-              indexUiState.refinementList &&
-              indexUiState.refinementList.intro_cn &&
-              indexUiState.refinementList.intro_cn.join('~'),
             'page': indexUiState.page,
           };
         },
@@ -172,7 +168,6 @@ ready(function() {
                 'status': routeState.status && routeState.status.split('~'),
                 'institute': routeState.institute && routeState.institute.split('~'),
                 'intro_en': routeState.intro_en && routeState.intro_en.split('~'),
-                'intro_cn': routeState.intro_cn && routeState.intro_cn.split('~'),
               },
               'page': routeState.page,
             },
@@ -191,7 +186,6 @@ ready(function() {
     'status',
     'institute',
     'intro_en',
-    'intro_cn',
   ];
 
   /* ---------------------------- */

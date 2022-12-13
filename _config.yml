@@ -5,6 +5,7 @@
 # Meta tags
 title: climind.cn
 description: Quickly find climate datasets from 109,000 sources in the world. 
+languages: ["en", "cn"]
 
 # Jekyll settings
 baseurl: # Leave this blank unless your site is located on a subpath, e.g. /blog

@@ -80,12 +80,12 @@ ready(function() {
   // ];
   const facets = [
      {
-       'facet': 'first_level',
-       'label': 'First Level',
+       'facet': 'first_level_cn',
+       'label': '一级分类',
      },
      {
-       'facet': 'second_level',
-       'label': 'Second Level',
+       'facet': 'second_level_cn',
+       'label': '二级分类',
      },
   ]
 
@@ -98,7 +98,7 @@ ready(function() {
 
   // Toggle search type
   toggle.onchange = function() {
-    window.location.href = '/search';
+    window.location.href = '/cn/search';
   };
 
   // Toogle Advanced Search tools
@@ -121,7 +121,7 @@ ready(function() {
           const indexUiState = uiState[algoliaIndex];
           return {
             'query': indexUiState.query,
-            'menu_name':
+            'menu_name_cn':
               indexUiState.refinementList &&
               indexUiState.refinementList.menu_name &&
               indexUiState.refinementList.menu_name.join('~'),
@@ -129,26 +129,22 @@ ready(function() {
               indexUiState.refinementList &&
               indexUiState.refinementList.data_source &&
               indexUiState.refinementList.data_source.join('~'),
-            'first_level':
+            'first_level_cn':
               indexUiState.refinementList &&
               indexUiState.refinementList.first_level &&
               indexUiState.refinementList.first_level.join('~'),
-            'second_level':
+            'second_level_cn':
               indexUiState.refinementList &&
               indexUiState.refinementList.second_level &&
               indexUiState.refinementList.second_level.join('~'),
-            'status':
-              indexUiState.refinementList &&
-              indexUiState.refinementList.status &&
-              indexUiState.refinementList.status.join('~'),
             'institute':
               indexUiState.refinementList &&
               indexUiState.refinementList.institute &&
               indexUiState.refinementList.institute.join('~'),
-            'intro_en':
+            'intro_cn':
               indexUiState.refinementList &&
-              indexUiState.refinementList.intro_en &&
-              indexUiState.refinementList.intro_en.join('~'),
+              indexUiState.refinementList.intro_cn &&
+              indexUiState.refinementList.intro_cn.join('~'),
             'page': indexUiState.page,
           };
         },
@@ -161,13 +157,12 @@ ready(function() {
             [algoliaIndex]: {
               'query': routeState.query,
               'refinementList': {
-                'menu_name': routeState.menu_name && routeState.menu_name.split('~'),
+                'menu_name_cn': routeState.menu_name && routeState.menu_name.split('~'),
                 'data_source': routeState.data_source && routeState.data_source.split('~'),
-                'first_level': routeState.first_level && routeState.first_level.split('~'),
-                'second_level': routeState.second_level && routeState.second_level.split('~'),
-                'status': routeState.status && routeState.status.split('~'),
+                'first_level_cn': routeState.first_level && routeState.first_level.split('~'),
+                'second_level_cn': routeState.second_level && routeState.second_level.split('~'),
                 'institute': routeState.institute && routeState.institute.split('~'),
-                'intro_en': routeState.intro_en && routeState.intro_en.split('~'),
+                'intro_cn': routeState.intro_cn && routeState.intro_cn.split('~'),
               },
               'page': routeState.page,
             },
@@ -179,13 +174,12 @@ ready(function() {
 
   // Define default search parameters
   const defaultSearchableAttributes = [
-    'menu_name',
+    'menu_name_cn',
     'data_source',
-    'first_level',
-    'second_level',
-    'status',
+    'first_level_cn',
+    'second_level_cn',
     'institute',
-    'intro_en',
+    'intro_cn',
   ];
 
   /* ---------------------------- */
@@ -275,10 +269,10 @@ ready(function() {
     const triggerEl = document.getElementById('search-box-dropdown-trigger').querySelector('.search-box-dropdown-trigger-wrapper');
     if (widgetParams.searchParameters.restrictSearchableAttributes.length === 5) {
       triggerEl.classList.remove('adjusted');
-      inputEl.placeholder = 'Search by keywords, locations, or project names';
+      inputEl.placeholder = '搜索关键字，地点或项目名称';
     } else {
       triggerEl.classList.add('adjusted');
-      inputEl.placeholder = 'Search by custom fields selected';
+      inputEl.placeholder = '搜索自定义域';
     }
   };
 
@@ -430,11 +424,11 @@ ready(function() {
       'searchParameters': {
         'hitsPerPage': 8,
         'restrictSearchableAttributes': [
-          'menu_name',
+          'menu_name_cn',
           'data_source',
-          'first_level',
-          'second_level',
-          'intro_en',
+          'first_level_cn',
+          'second_level_cn',
+          'intro_cn',
         ],
       },
     }),
@@ -462,13 +456,13 @@ ready(function() {
           return `
           <div class="row row-grant-names">
               <div class="col s12 m10">
-                <span class="text-bold"><a href="${data.data_source}">${data.menu_name}</a></span> 
+                <span class="text-bold"><a href="${data.data_source}">${data.menu_name_cn}</a></span> 
               </div>
               <div class="col s12 m2 hide-on-small-only">
                 <div class="actions-wrapper center-align">
                   <a href="#" class="dropdown-trigger dropdown-trigger-hits blue-grey-text" data-target="${data.objectID}"><i class="material-icons md-18">more_vert</i></a>
                   <ul id="${data.objectID}" class='dropdown-content'>
-                    <li><a href="${data.data_source}"><i class="material-icons md-18 left">list_alt</i>View source</a></li>
+                    <li><a href="${data.data_source}"><i class="material-icons md-18 left">list_alt</i>查看数据源</a></li>
                   </ul>
                 </div>
               </div>
@@ -477,13 +471,13 @@ ready(function() {
             <div class="row"> 
               <div class="col s12 m10">
                 <a class="text-muted-max small" href="https://www.grantmakers.io/profiles/{{ menu_name }}" title="View foundation profile">${data.institute}</a>
-                <span class="text-muted small"><em>${data.first_level}:${data.second_level}</em></span>
+                <span class="text-muted small"><em>${data.first_level_cn}:${data.second_level_cn}</em></span>
               </div>
             </div>
             <div class="row"> 
               <div class="col s12 m10">
                 <span class="small text-light">
-                  ${data.intro_en}
+                  ${data.intro_cn}
                 </span>
               </div>            
             </div>
@@ -514,7 +508,7 @@ ready(function() {
         'button': ['btn blue-grey white-text waves-effect waves-light'],
       },
       'templates': {
-        'resetLabel': 'Clear filters',
+        'resetLabel': '清空过滤条件',
       },
     }),
 

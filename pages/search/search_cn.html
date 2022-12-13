@@ -1,5 +1,5 @@
 ---
-permalink: /search
+permalink: /cn/search
 ---
 <!doctype html>
 <html lang="en">
@@ -34,12 +34,12 @@ permalink: /search
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.13.0/algoliasearch-lite.umd.min.js" integrity="sha512-ji9S/0drol2op0X3D/X3s0NzPYTbJ+uuTqKM4pppyGKCvJ9+aKsw6Vgyk3ByZ8ZXGh0rdr+Eokv+m1xOrygFVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/4.39.2/instantsearch.production.min.js" integrity="sha512-GZAF54GRoa3oTxOSw6uLtVBHcnMBK1K0HqK7RymF9yjb+C65B8mAOs46vvk4YIKuED5FkAUrSOc24f8mmpLqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{{ site.baseurl }}/assets/js/search-grants.js"></script>
+    <script src="{{ site.baseurl }}/assets/js/search-grants.cn.js"></script>
     
   </head>
   <body class="unified-search">
 
-    {% include materialize/header.html %}
+    {% include materialize/header_cn.html %}
 
     <main>
       <div class="parallax-container">
@@ -48,9 +48,9 @@ permalink: /search
         </div>
         <div class="intro valign-wrapper">
           <div class="intro-text center-align white-text">
-            <h1 class="text-bold">Open Climate Databases</h1>
-            <h5>Discover insights into the climate change</h5>
-            <p>Search through {{ site.number_of_searchable_records }} million climate-related datasets contained in the public databases</p>
+            <h1 class="text-bold">开源气候数据库</h1>
+            <h5>以数据驱动洞察气候变化</h5>
+            <p>从{{ site.number_of_searchable_records }},000,000个公开数据库中气候相关的数据集搜索</p>
           </div>
         </div>
         <canvas></canvas>
@@ -62,8 +62,8 @@ permalink: /search
               <div class="col l2 hide-on-med-and-down">
                 <div id="search-toggle" class="input-field valign-wrapper">
                   <select class="browser-default grants-search white-text">
-                    <optgroup class="disabled" label="Search all datasets">
-                      <option value="database" selected>Database Search</option>
+                    <optgroup class="disabled" label="搜索选项">
+                      <option value="database" selected>数据库搜索</option>
                     </optgroup>
                   </select>
                 </div>
@@ -78,45 +78,45 @@ permalink: /search
                 <div class="search-box-dropdown-wrapper"></div>
                 <div id="search-box-dropdown" class="dropdown-content white text-default">
                   <div class="dropdown-wrapper">
-                    <span class="dropdown-header"><small>FIELDS TO SEARCH</small></span>
+                    <span class="dropdown-header"><small>搜索域</small></span>
                     <ul id="dropdown-body">
                       <li class="valign-wrapper">
                         <label>
-                        <input id="menu_name" type="checkbox" class="filled-in" checked="checked" />
-                        <span>Project Name</span>
+                        <input id="menu_name_cn" type="checkbox" class="filled-in" checked="checked" />
+                        <span>项目名称</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="menu_name">only</span>
+                        <span class="checkbox-only" data-attribute="menu_name">仅此项</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
                         <input id="data_source" type="checkbox" class="filled-in" checked="checked" />
-                        <span>Data Source</span>
+                        <span>数据源</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="data_source">only</span>
+                        <span class="checkbox-only" data-attribute="data_source">仅此项</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
-                        <input id="first_level" type="checkbox" class="filled-in" checked="checked" />
-                        <span>First Level</span>
+                        <input id="first_level_cn" type="checkbox" class="filled-in" checked="checked" />
+                        <span>一级分类</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="first_level">only</span>
+                        <span class="checkbox-only" data-attribute="first_level">仅此项</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
-                        <input id="second_level" type="checkbox" class="filled-in" checked="checked" />
-                        <span>Second Level</span>
+                        <input id="second_level_cn" type="checkbox" class="filled-in" checked="checked" />
+                        <span>二级分类</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="second_level">only</span>
+                        <span class="checkbox-only" data-attribute="second_level">仅此项</span>
                       </li>
                       <li class="valign-wrapper">
                         <label>
-                        <input id="intro_en" type="checkbox" class="filled-in" checked="checked" />
-                        <span>Introduction</span>
+                        <input id="intro_cn" type="checkbox" class="filled-in" checked="checked" />
+                        <span>简介</span>
                         </label>
-                        <span class="checkbox-only" data-attribute="intro_en">only</span>
+                        <span class="checkbox-only" data-attribute="intro_en">仅此项</span>
                       </li>
                       <li class="valign-wrapper small text-light left-align">
-                        <span id="select-all" style="margin:inherit">SELECT ALL</span>
+                        <span id="select-all" style="margin:inherit">选择所有</span>
                       </li>
                     </ul>
                   </div>
@@ -136,7 +136,7 @@ permalink: /search
           <div class="col s12 l4"> 
             <!-- Filters / Refinements header -->
             <div class="text-muted hide-on-med-and-down">
-              Filters 
+              过滤
             </div>
             <div class="hidden">
               <ul class="actions">
@@ -153,8 +153,6 @@ permalink: /search
             <div class="section-refinements section-refinements-grants-search hide-on-med-and-down grants-search">
               <div> <!-- Add row class to remove added white space / padding -->
                 <div class="col s12">
-                  <div id="ais-widget-refinement-list--first_level"></div>
-                  <div id="ais-widget-refinement-list--second_level"></div>
                   <div id="ais-widget-refinement-list--first_level_cn"></div>
                   <div id="ais-widget-refinement-list--second_level_cn"></div>
                 </div>
@@ -190,10 +188,10 @@ permalink: /search
                   <div class="card-content"> <!-- Use class card-content for grants results-->
                     <div class="row row-tight hide-on-small-only">
                       <div class="col m10">
-                        Databases & Brief introduction
+                        数据集及简介
                       </div>
                       <div class="col m2">
-                        Actions
+                        操作
                       </div>
                       <div class="col m12 divider"></div>
                     </div>
@@ -231,7 +229,7 @@ permalink: /search
       </div>
     </div>
 
-    {% include materialize/footer.html %}
+    {% include materialize/footer_cn.html %}
 
     <!-- End Modals-->
     {% if jekyll.environment == 'production' %}
