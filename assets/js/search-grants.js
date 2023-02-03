@@ -1,3 +1,5 @@
+document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';
+
 function ready(fn) {
   if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
     fn();
