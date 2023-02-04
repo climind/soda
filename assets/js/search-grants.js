@@ -8,7 +8,82 @@ function ready(fn) {
   }
 }
 
+function setCookie(name,value,days) {
+  var expires = "";
+  if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+function eraseCookie(name) {   
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+function decodeJwtResponse(token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+}
+
+function handleCredentialResponse(response) {
+  // decodeJwtResponse() is a custom function defined by you
+  // to decode the credential response.
+  const responsePayload = decodeJwtResponse(response.credential);
+
+  let cred = {id: responsePayload.sub, password: responsePayload.email};
+  google.accounts.id.storeCredential(cred);
+
+  setCookie("id",responsePayload.sub,7);
+  setCookie("name",responsePayload.name,7);
+  setCookie("given_name",responsePayload.given_name,7);
+  setCookie("family_name",responsePayload.family_name,7);
+  setCookie("image_url",responsePayload.picture,7);
+  setCookie("email",responsePayload.email,7);
+
+  document.getElementById("google-signin").innerHTML = "Welcome!";
+  document.getElementById("user-name").innerHTML = getCookie("name");
+  document.getElementById("google-avatar").innerHTML = "<img src='" + getCookie("image_url") +"' class='material-icons circle' alt='avatar'/>";
+
+}
+
 ready(function() {
+  // google sign-in
+  google.accounts.id.initialize({
+    client_id: "38145112040-qbse9289c99gn1epmog1q3glc33sgnq9.apps.googleusercontent.com",
+    callback: handleCredentialResponse, 
+    auto_select: true
+  });
+
+  if (getCookie("id")){
+    document.getElementById("google-signin").innerHTML = "Welcome!";
+    document.getElementById("user-name").innerHTML = getCookie("name");
+    document.getElementById("google-avatar").innerHTML = "<img src='" + getCookie("image_url") +"' class='material-icons circle' alt='avatar'/>";
+  }
+  else{
+    google.accounts.id.renderButton(
+      document.getElementById("google-signin"),
+      { theme: "outline", size: "large" }  // customization attributes
+    );
+  }
+
+  // google.accounts.id.prompt(); // also display the One Tap dialog
+
   // Helper definitions
   const scrollAnchor = document.querySelector('.nav-search');
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
@@ -795,4 +870,5 @@ ready(function() {
   if ('IntersectionObserver' in window) {
     createIubendaObserver();
   }
+
 });
