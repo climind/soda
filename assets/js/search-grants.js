@@ -78,7 +78,7 @@ ready(function() {
   else{
     google.accounts.id.renderButton(
       document.getElementById("google-signin"),
-      { theme: "outline", size: "large" }  // customization attributes
+      { theme: "outline", size: "medium" }  // customization attributes
     );
   }
 
