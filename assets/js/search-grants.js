@@ -58,7 +58,8 @@ function handleCredentialResponse(response) {
 
   document.getElementById("google-signin").innerHTML = "Welcome!";
   document.getElementById("user-name").innerHTML = getCookie("name");
-  document.getElementById("google-avatar").innerHTML = "<img src='" + getCookie("image_url") +"' class='material-icons circle' alt='avatar'/>";
+  const img_str = "<img src='" + getCookie("image_url") +"' class='material-icons circle' alt='avatar'/>";
+  document.getElementById("google-avatar").innerHTML = '<a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger">' + img_str + '</a>';
 
 }
 
