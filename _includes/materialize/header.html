@@ -29,11 +29,11 @@
                   </a>
                 </li>
                 <li class="collection-item avatar">
-                  <div id="google-avatar"><i class="material-icons circle blue-grey">login</i></div>
+                  <div id="google-avatar">
+                    <i class="material-icons circle blue-grey">login</i> 
+                  </div>
                   <span id="google-signin" class="black-text"></span>
-                  <a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger">
-                    <p id="user-name" class="blue-grey-text text-lighten-1"></p>
-                  </a>
+                  <p id="user-name" class="blue-grey-text text-lighten-1"></p>
                 </li>
               </ul>
             </div>
@@ -47,6 +47,7 @@
 
 <!-- Navbar dropdown menu item -->
 <ul class="dropdown-content" id="navbar-more" >
-  <li><a href="{{ site.baseurl }}/about/" class="waves-effect waves-light" data-ga="About" title="About">About</a></li>
+  <li><a href="{{ site.baseurl }}/portal/" class="waves-effect waves-light" data-ga="portal" title="My Portal">My Portal</a></li>
+  <li><a href="{{ site.baseurl }}/search" class="waves-effect waves-light" id="sign-out-button" data-ga="signout" title="signout">Sign Out</a></li>
 </ul>
 <!-- End navbar dropdown -->

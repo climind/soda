@@ -84,6 +84,11 @@ ready(function() {
   }
 
   // google.accounts.id.prompt(); // also display the One Tap dialog
+  
+  // google sign out
+  document.getElementById('sign-out-button').addEventListener('click', e => {
+    eraseCookie("id");
+  });
 
   // Helper definitions
   const scrollAnchor = document.querySelector('.nav-search');
