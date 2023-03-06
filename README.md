@@ -6,6 +6,10 @@ Slogan: Discover insights into the climate change.
 
 Mission: Climind makes the public climate-related datasets readily available to anyone and any organization on this planet.
 
+# Google identity authentication
+
+https://developers.google.com/identity/gsi/web/guides/overview
+
 # License and claims
 
 The SODA system is built on [Algolia](https://www.algolia.com/) search engine and subject to the following license:
