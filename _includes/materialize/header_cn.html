@@ -29,14 +29,15 @@
                   </a>
                 </li>
                 <li class="collection-item avatar">
-                  <div id="google-avatar">
+                  <div id="wechat-avatar">
                     <i class="material-icons circle blue-grey">login</i> 
                   </div>
-                  <span id="google-signin" class="black-text">微信登录</span>
-                  <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wx831d4e1c822305b2&redirect_uri=http%3A%2F%2Fclimind.cn%2Fcn%2Fsearch&response_type=code&scope=snsapi_login&state=test#wechat_redirect" >
-                    <p id="user-name" class="blue-grey-text text-lighten-1">点击扫码</p>
-                  </a>
-                  <div id="login_container"></div>
+                  <span id="wechat-signin" class="black-text">
+                    <a href="" class="black-text">微信登录</a>
+                  </span>
+                  <p id="user-name" class="blue-grey-text text-lighten-1">
+                    <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wx831d4e1c822305b2&redirect_uri=https%3A%2F%2Fclimind.cn%2Fcn%2Fsearch&response_type=code&scope=snsapi_login&state=test#wechat_redirect" class="blue-grey-text text-lighten-1"> 点击扫码 </a>
+                  </p>
                 </li>
               </ul>
             </div>
@@ -50,6 +51,7 @@
 
 <!-- Navbar dropdown menu item -->
 <ul class="dropdown-content" id="navbar-more" >
-  <li><a href="{{ site.baseurl }}/wechat_login/" class="waves-effect waves-light" data-ga="wechat_login" title="Wechat Login">WeChat Login</a></li>
+  <li><a href="{{ site.baseurl }}/portal/" class="waves-effect waves-light" data-ga="portal" title="My Portal">My Portal</a></li>
+  <li><a href="{{ site.baseurl }}/cn/search" class="waves-effect waves-light" id="sign-out-button" data-ga="signout" title="signout">Sign Out</a></li>
 </ul>
 <!-- End navbar dropdown -->

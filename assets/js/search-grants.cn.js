@@ -6,7 +6,68 @@ function ready(fn) {
   }
 }
 
+function setCookie(name,value,days) {
+  var expires = "";
+  if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+function eraseCookie(name) {   
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+// wechat login
+async function wechatLogin(code)
+{
+  if (code == null){
+    return;
+  }
+  var theUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx831d4e1c822305b2&secret=07d0303a2e047c38e1fb6ca30a183739&code="+code+"&grant_type=authorization_code"
+  const token_response = await fetch(theUrl).then((res) => res.json());
+  const access_token = token_response.access_token;
+  const openid = token_response.openid;
+
+  theUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid;
+  const response = await fetch(theUrl).then((res) => res.json());
+
+  setCookie("wx_id",response.openid,7);
+  setCookie("wx_name",response.nickname,7);
+  setCookie("wx_image_url",response.headimgurl,7);
+  location.reload()
+}
+
 ready(function() {
+  // wechat login
+  if (getCookie("wx_id")){
+    document.getElementById("wechat-signin").innerHTML = "Welcome!";
+    document.getElementById("user-name").innerHTML = getCookie("wx_name");
+    const img_str = "<img src='" + getCookie("wx_image_url") +"' class='material-icons circle' alt='avatar'/>";
+    document.getElementById("wechat-avatar").innerHTML = '<a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger">' + img_str + '</a>';
+  }
+  else{
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    wechatLogin(urlParams.get('code'));
+  }
+
+  // google sign out
+  document.getElementById('sign-out-button').addEventListener('click', e => {
+    eraseCookie("wx_id");
+  });
+
   // Helper definitions
   const scrollAnchor = document.querySelector('.nav-search');
   const isMobile = window.matchMedia('only screen and (max-width: 992px)');
