@@ -36,3 +36,7 @@ exclude:
   - scripts/
   - data/ #Note: does not affect _data folder
   - vendor/
+
+webrick:
+  headers:
+    Access-Control-Allow-Origin: "*"
