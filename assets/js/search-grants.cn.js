@@ -36,12 +36,12 @@ async function wechatLogin(code)
     return;
   }
   var theUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx831d4e1c822305b2&secret=07d0303a2e047c38e1fb6ca30a183739&code="+code+"&grant_type=authorization_code"
-  const token_response = await fetch(theUrl, {mode: "no-cors"}).then((res) => res.json());
+  const token_response = await fetch(theUrl).then((res) => res.json());
   const access_token = token_response.access_token;
   const openid = token_response.openid;
 
   theUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid;
-  const response = await fetch(theUrl, {mode: "no-cors"}).then((res) => res.json());
+  const response = await fetch(theUrl).then((res) => res.json());
 
   setCookie("wx_id",response.openid,7);
   setCookie("wx_name",response.nickname,7);
