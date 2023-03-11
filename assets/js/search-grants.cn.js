@@ -35,7 +35,7 @@ async function wechatLogin(code)
   if (code == null){
     return;
   }
-  var server_url = "https://20.2.85.90:5000/wechat_login?code="+code
+  var server_url = "http://20.2.85.90:5000/wechat_login?code="+code
   const response = await fetch(server_url).then((res) => res.json());
   setCookie("wx_id",response.openid,7);
   setCookie("wx_name",response.nickname,7);
