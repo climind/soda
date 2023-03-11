@@ -46,7 +46,7 @@ async function wechatLogin(code)
 ready(function() {
   // wechat login
   if (getCookie("wx_id")){
-    document.getElementById("wechat-signin").innerHTML = "Welcome!";
+    document.getElementById("wechat-signin").innerHTML = "欢迎!";
     document.getElementById("user-name").innerHTML = getCookie("wx_name");
     const img_str = "<img src='" + getCookie("wx_image_url") +"' class='material-icons circle' alt='avatar'/>";
     document.getElementById("wechat-avatar").innerHTML = '<a href="#" data-target="navbar-more" class="dropdown-trigger" id="primary-navbar-dropdown-trigger">' + img_str + '</a>';
